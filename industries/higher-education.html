@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-Light Strobe System | Alert Pro Solutions - Visual Emergency Alerts</title>
+    <title>Higher Education Security | Alert Pro Solutions - College & University Safety</title>
     <style>
         * {
             margin: 0;
@@ -175,7 +175,7 @@
         /* Page Header */
         .page-header {
             padding: 8rem 5% 3rem;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
             color: var(--bg-white);
             text-align: center;
         }
@@ -223,7 +223,7 @@
         
         .section-badge {
             display: inline-block;
-            background: #f59e0b;
+            background: #7c3aed;
             color: var(--bg-white);
             padding: 0.25rem 0.75rem;
             border-radius: 50px;
@@ -243,41 +243,6 @@
             color: var(--text-secondary);
             margin-bottom: 2rem;
             line-height: 1.7;
-        }
-        
-        /* Product Showcase */
-        .product-showcase {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            margin: 3rem 0;
-        }
-        
-        .product-visual {
-            background: var(--bg-white);
-            padding: 3rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-            border: 1px solid var(--border);
-        }
-        
-        .product-icon {
-            font-size: 8rem;
-            color: #f59e0b;
-            margin-bottom: 2rem;
-            display: block;
-        }
-        
-        .product-visual h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .product-visual p {
-            color: var(--text-secondary);
-            margin: 0;
         }
         
         /* Features Grid */
@@ -304,7 +269,7 @@
         .feature-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -324,6 +289,82 @@
             line-height: 1.6;
             margin-bottom: 0;
             font-size: 0.95rem;
+        }
+        
+        /* Use Cases */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .use-case {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #7c3aed;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .use-case h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .use-case p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .use-case-benefits {
+            list-style: none;
+        }
+        
+        .use-case-benefits li {
+            color: #7c3aed;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .use-case-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #7c3aed;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         /* CTA Section */
@@ -487,17 +528,21 @@
             h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
             
-            .nav-links, .nav-cta .btn-outline {
-                display: none;
-            }
-            
-            .product-showcase {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
             .features-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .use-cases {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
             .footer-grid {
@@ -520,34 +565,35 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="breadcrumb">
-            <a href="../products.html">Products</a> / X-Light Strobe
+            <a href="../industries.html">Industries</a> / Higher Education
         </div>
-        <h1>X-Light Strobe System</h1>
-        <p>RGBW strobe lighting system for visual emergency alerts, zone identification, and silent notification protocols with unlimited color patterns.</p>
+        <h1>Higher Education Security</h1>
+        <p>Comprehensive campus safety solutions for colleges and universities, protecting students, faculty, and staff across diverse campus environments.</p>
     </section>
 
-    <!-- Product Overview -->
+    <!-- Overview -->
     <section class="section">
         <div class="section-content">
-            <div class="section-badge">VISUAL ALERTS</div>
-            <h2>Advanced Visual Communication System</h2>
-            <p>The X-Light Strobe System provides powerful visual communication capabilities for emergency alerts, zone identification, and silent notifications. With full-spectrum RGBW lighting and unlimited pattern options, it delivers clear visual signals in any environment.</p>
+            <div class="section-badge">CAMPUS SAFETY</div>
+            <h2>Securing Higher Education Communities</h2>
+            <p>College and university campuses present unique security challenges with diverse populations, multiple buildings, and 24/7 operations. Our solutions provide comprehensive coverage while respecting the open nature of academic environments.</p>
             
-            <div class="product-showcase">
-                <div class="product-visual">
-                    <span class="product-icon">💡</span>
-                    <h3>X-Light Strobe System</h3>
-                    <p>RGBW multi-color strobe with unlimited pattern capabilities</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Incident Prevention</div>
                 </div>
-                <div>
-                    <h3>Visual Communication That Can't Be Missed</h3>
-                    <p>The X-Light system ensures critical information is communicated visually, even in high-noise environments or for hearing-impaired individuals. Custom colors and patterns can be assigned to different emergency types and zones.</p>
-                    <ul style="list-style: none; margin-top: 1.5rem;">
-                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: #f59e0b;">✓</strong> 16.7 million color combinations</li>
-                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: #f59e0b;">✓</strong> Unlimited custom flash patterns</li>
-                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: #f59e0b;">✓</strong> Zone-specific color coding</li>
-                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: #f59e0b;">✓</strong> Silent alert capabilities</li>
-                    </ul>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;45s</div>
+                    <div class="stat-label">Campus Response</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Campus Coverage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Campuses Protected</div>
                 </div>
             </div>
         </div>
@@ -556,45 +602,129 @@
     <!-- Key Features -->
     <section class="section">
         <div class="section-content">
-            <div class="section-badge">KEY FEATURES</div>
-            <h2>Advanced Visual Alert Features</h2>
-            <p>The X-Light Strobe System includes sophisticated features designed to provide clear, unmistakable visual communication in any situation.</p>
+            <div class="section-badge">CORE CAPABILITIES</div>
+            <h2>Campus-Wide Security Features</h2>
+            <p>Our higher education solutions address the complex needs of modern campuses while maintaining the open, collaborative environment essential to academic success.</p>
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🌈</div>
-                    <h4>Full RGBW Spectrum</h4>
-                    <p>16.7 million color combinations with white light enhancement for maximum visibility and customization.</p>
+                    <div class="feature-icon">🏫</div>
+                    <h4>Campus-Wide Coverage</h4>
+                    <p>Comprehensive monitoring across dormitories, academic buildings, libraries, and outdoor spaces with unified management.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h4>Custom Flash Patterns</h4>
-                    <p>Unlimited pattern options including steady, flash, pulse, and custom sequences for different alert types.</p>
+                    <div class="feature-icon">📱</div>
+                    <h4>Student Safety Apps</h4>
+                    <p>Mobile safety applications for students with panic buttons, location sharing, and emergency notifications.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h4>Zone Color Coding</h4>
-                    <p>Assign specific colors to different zones or emergency types for instant visual identification.</p>
+                    <div class="feature-icon">🚨</div>
+                    <h4>Emergency Alerts</h4>
+                    <p>Campus-wide emergency notification system with multi-channel alerts including digital displays, PA systems, and mobile devices.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">🔇</div>
-                    <h4>Silent Alert Mode</h4>
-                    <p>Provide visual notifications without audio for discrete alerts and hearing accessibility.</p>
+                    <div class="feature-icon">🔒</div>
+                    <h4>Residence Hall Safety</h4>
+                    <p>Specialized monitoring for dormitories and student housing with privacy-compliant safety features.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">💡</div>
-                    <h4>High Brightness</h4>
-                    <p>2000 lumen output ensures visibility in bright environments and outdoor applications.</p>
+                    <div class="feature-icon">💨</div>
+                    <h4>Substance Detection</h4>
+                    <p>Advanced detection systems for vaping, smoking, and other prohibited substances in residence halls and academic buildings.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">⚙️</div>
-                    <h4>Easy Programming</h4>
-                    <p>Simple configuration through the X-Guardian platform with preset patterns and custom options.</p>
+                    <div class="feature-icon">👥</div>
+                    <h4>Event Security</h4>
+                    <p>Scalable security solutions for campus events, sporting events, and large gatherings with crowd monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">APPLICATIONS</div>
+            <h2>Higher Education Campus Applications</h2>
+            <p>Our solutions are deployed across various areas of college and university campuses to provide comprehensive protection while maintaining academic freedom.</p>
+            
+            <div class="use-cases">
+                <div class="use-case">
+                    <h4>Residence Halls & Dormitories</h4>
+                    <p>Comprehensive safety monitoring for student housing with privacy-compliant detection and emergency response capabilities.</p>
+                    <ul class="use-case-benefits">
+                        <li>Substance abuse detection and prevention</li>
+                        <li>Emergency response for medical incidents</li>
+                        <li>Noise and disturbance monitoring</li>
+                        <li>Resident advisor safety tools</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case">
+                    <h4>Academic Buildings & Libraries</h4>
+                    <p>Safety solutions for classrooms, laboratories, and study spaces that support the academic environment while ensuring security.</p>
+                    <ul class="use-case-benefits">
+                        <li>Faculty and staff panic buttons</li>
+                        <li>After-hours security monitoring</li>
+                        <li>Environmental safety in labs</li>
+                        <li>Emergency evacuation systems</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case">
+                    <h4>Campus Recreation & Athletics</h4>
+                    <p>Specialized safety solutions for gyms, sports facilities, and recreational areas with high activity levels and varying schedules.</p>
+                    <ul class="use-case-benefits">
+                        <li>Equipment and facility monitoring</li>
+                        <li>Emergency medical response</li>
+                        <li>Event security management</li>
+                        <li>After-hours access control</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case">
+                    <h4>Campus Grounds & Outdoor Areas</h4>
+                    <p>Comprehensive monitoring of walkways, parking areas, and outdoor spaces to ensure safe passage across campus.</p>
+                    <ul class="use-case-benefits">
+                        <li>Emergency call stations</li>
+                        <li>Lighting and visibility monitoring</li>
+                        <li>Weather-related safety alerts</li>
+                        <li>Campus security patrol integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Privacy & Rights -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">PRIVACY & RIGHTS</div>
+            <h2>Balancing Safety with Student Privacy</h2>
+            <p>Our solutions are designed to enhance campus safety while respecting student privacy rights and maintaining the open, collaborative environment essential to higher education.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h4>FERPA Compliance</h4>
+                    <p>Full compliance with student privacy regulations and educational record protection requirements.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚖️</div>
+                    <h4>Constitutional Rights</h4>
+                    <p>Solutions designed to respect constitutional rights while providing necessary safety and security measures.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h4>Academic Freedom</h4>
+                    <p>Security measures that support rather than hinder the free exchange of ideas and academic discourse.</p>
                 </div>
             </div>
         </div>
@@ -603,11 +733,11 @@
     <!-- CTA Section -->
     <section class="section cta-section">
         <div class="section-content">
-            <h2>Illuminate Your Emergency Communications</h2>
-            <p>Ensure your visual alerts are seen and understood with the most advanced strobe lighting system available. Experience the X-Light system's powerful visual communication capabilities.</p>
+            <h2>Enhance Campus Safety & Security</h2>
+            <p>Create a safer campus environment while maintaining the open, collaborative atmosphere essential to higher education. Schedule a consultation to see how we can improve your campus safety.</p>
             <div class="cta-buttons">
-                <a href="../contact.html" class="btn-cta btn-cta-white">Schedule X-Light Demo</a>
-                <a href="../products.html" class="btn-cta btn-cta-outline">View All Products</a>
+                <a href="../contact.html" class="btn-cta btn-cta-white">Schedule Campus Safety Consultation</a>
+                <a href="../industries.html" class="btn-cta btn-cta-outline">View All Industries</a>
             </div>
         </div>
     </section>

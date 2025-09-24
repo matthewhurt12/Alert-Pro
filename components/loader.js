@@ -1,4 +1,4 @@
-// Component Loader for Responza Systems Website
+// Component Loader for Alert Pro Solutions Website
 // Loads header and footer components and handles navigation highlighting
 
 class ComponentLoader {
@@ -24,7 +24,7 @@ class ComponentLoader {
     // Get the correct path to components based on current location
     getComponentPath() {
         const path = window.location.pathname;
-        const isInSubdirectory = path.includes('/solutions/') || path.includes('/products/') || path.split('/').length > 2;
+        const isInSubdirectory = path.includes('/solutions/') || path.includes('/products/') || path.includes('/industries/') || path.split('/').length > 2;
         const componentPath = isInSubdirectory ? '../components/' : 'components/';
         console.log('ComponentLoader: Using component path:', componentPath, 'for current path:', path);
         return componentPath;
@@ -75,7 +75,7 @@ class ComponentLoader {
         // Wait for components to be fully loaded
         setTimeout(() => {
             const currentPath = window.location.pathname;
-            const isInSubdirectory = currentPath.includes('/solutions/') || currentPath.includes('/products/');
+            const isInSubdirectory = currentPath.includes('/solutions/') || currentPath.includes('/products/') || currentPath.includes('/industries/');
             
             if (isInSubdirectory) {
                 // We're in a subdirectory, so we need to adjust paths
@@ -88,16 +88,44 @@ class ComponentLoader {
                     }
                     
                     // Fix solution page links - remove the solutions/ prefix since we're already in solutions/
-                    if (href.startsWith('solutions/')) {
+                    if (href.startsWith('solutions/') && currentPath.includes('/solutions/')) {
                         const newHref = href.replace('solutions/', '');
                         link.setAttribute('href', newHref);
                         console.log(`Fixed solution link: ${href} -> ${newHref}`);
                     }
                     // Fix product page links - remove the products/ prefix since we're already in products/
-                    else if (href.startsWith('products/')) {
+                    else if (href.startsWith('products/') && currentPath.includes('/products/')) {
                         const newHref = href.replace('products/', '');
                         link.setAttribute('href', newHref);
                         console.log(`Fixed product link: ${href} -> ${newHref}`);
+                    }
+                    // Fix cross-directory links - add ../ prefix when navigating between subdirectories
+                    else if (href.startsWith('solutions/') && currentPath.includes('/products/')) {
+                        const newHref = '../' + href;
+                        link.setAttribute('href', newHref);
+                        console.log(`Fixed cross-directory solution link: ${href} -> ${newHref}`);
+                    }
+                    else if (href.startsWith('products/') && currentPath.includes('/solutions/')) {
+                        const newHref = '../' + href;
+                        link.setAttribute('href', newHref);
+                        console.log(`Fixed cross-directory product link: ${href} -> ${newHref}`);
+                    }
+                    // Fix industries page links - remove the industries/ prefix since we're already in industries/
+                    else if (href.startsWith('industries/') && currentPath.includes('/industries/')) {
+                        const newHref = href.replace('industries/', '');
+                        link.setAttribute('href', newHref);
+                        console.log(`Fixed industry link: ${href} -> ${newHref}`);
+                    }
+                    // Fix cross-directory links for industries
+                    else if (href.startsWith('industries/') && (currentPath.includes('/solutions/') || currentPath.includes('/products/'))) {
+                        const newHref = '../' + href;
+                        link.setAttribute('href', newHref);
+                        console.log(`Fixed cross-directory industry link: ${href} -> ${newHref}`);
+                    }
+                    else if ((href.startsWith('solutions/') || href.startsWith('products/')) && currentPath.includes('/industries/')) {
+                        const newHref = '../' + href;
+                        link.setAttribute('href', newHref);
+                        console.log(`Fixed cross-directory link from industries: ${href} -> ${newHref}`);
                     }
                     // Fix root-level page links - add ../ prefix to go up one directory
                     else if (!href.startsWith('../') && !href.includes('/')) {

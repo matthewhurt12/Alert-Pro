@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-Light Strobe System | Alert Pro Solutions - Visual Emergency Alerts</title>
+    <title>Corporate Security | Alert Pro Solutions - Enterprise Safety Solutions</title>
     <style>
         * {
             margin: 0;
@@ -175,7 +175,7 @@
         /* Page Header */
         .page-header {
             padding: 8rem 5% 3rem;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
             color: var(--bg-white);
             text-align: center;
         }
@@ -223,7 +223,7 @@
         
         .section-badge {
             display: inline-block;
-            background: #f59e0b;
+            background: #1f2937;
             color: var(--bg-white);
             padding: 0.25rem 0.75rem;
             border-radius: 50px;
@@ -243,41 +243,6 @@
             color: var(--text-secondary);
             margin-bottom: 2rem;
             line-height: 1.7;
-        }
-        
-        /* Product Showcase */
-        .product-showcase {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            margin: 3rem 0;
-        }
-        
-        .product-visual {
-            background: var(--bg-white);
-            padding: 3rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-            border: 1px solid var(--border);
-        }
-        
-        .product-icon {
-            font-size: 8rem;
-            color: #f59e0b;
-            margin-bottom: 2rem;
-            display: block;
-        }
-        
-        .product-visual h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .product-visual p {
-            color: var(--text-secondary);
-            margin: 0;
         }
         
         /* Features Grid */
@@ -304,7 +269,7 @@
         .feature-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -324,6 +289,82 @@
             line-height: 1.6;
             margin-bottom: 0;
             font-size: 0.95rem;
+        }
+        
+        /* Use Cases */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .use-case {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #1f2937;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .use-case h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .use-case p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .use-case-benefits {
+            list-style: none;
+        }
+        
+        .use-case-benefits li {
+            color: #1f2937;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .use-case-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         /* CTA Section */
@@ -487,17 +528,21 @@
             h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
             
-            .nav-links, .nav-cta .btn-outline {
-                display: none;
-            }
-            
-            .product-showcase {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
             .features-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .use-cases {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
             .footer-grid {
@@ -520,34 +565,35 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="breadcrumb">
-            <a href="../products.html">Products</a> / X-Light Strobe
+            <a href="../industries.html">Industries</a> / Corporate
         </div>
-        <h1>X-Light Strobe System</h1>
-        <p>RGBW strobe lighting system for visual emergency alerts, zone identification, and silent notification protocols with unlimited color patterns.</p>
+        <h1>Corporate Security Solutions</h1>
+        <p>Enterprise-grade safety and security solutions for corporate offices, manufacturing facilities, and business environments of all sizes.</p>
     </section>
 
-    <!-- Product Overview -->
+    <!-- Overview -->
     <section class="section">
         <div class="section-content">
-            <div class="section-badge">VISUAL ALERTS</div>
-            <h2>Advanced Visual Communication System</h2>
-            <p>The X-Light Strobe System provides powerful visual communication capabilities for emergency alerts, zone identification, and silent notifications. With full-spectrum RGBW lighting and unlimited pattern options, it delivers clear visual signals in any environment.</p>
+            <div class="section-badge">ENTERPRISE SECURITY</div>
+            <h2>Protecting Your Business Assets</h2>
+            <p>Corporate environments require sophisticated security solutions that protect employees, visitors, intellectual property, and physical assets while maintaining productivity and business continuity.</p>
             
-            <div class="product-showcase">
-                <div class="product-visual">
-                    <span class="product-icon">💡</span>
-                    <h3>X-Light Strobe System</h3>
-                    <p>RGBW multi-color strobe with unlimited pattern capabilities</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">System Uptime</div>
                 </div>
-                <div>
-                    <h3>Visual Communication That Can't Be Missed</h3>
-                    <p>The X-Light system ensures critical information is communicated visually, even in high-noise environments or for hearing-impaired individuals. Custom colors and patterns can be assigned to different emergency types and zones.</p>
-                    <ul style="list-style: none; margin-top: 1.5rem;">
-                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: #f59e0b;">✓</strong> 16.7 million color combinations</li>
-                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: #f59e0b;">✓</strong> Unlimited custom flash patterns</li>
-                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: #f59e0b;">✓</strong> Zone-specific color coding</li>
-                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: #f59e0b;">✓</strong> Silent alert capabilities</li>
-                    </ul>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;20s</div>
+                    <div class="stat-label">Response Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Monitoring</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Businesses Protected</div>
                 </div>
             </div>
         </div>
@@ -556,45 +602,129 @@
     <!-- Key Features -->
     <section class="section">
         <div class="section-content">
-            <div class="section-badge">KEY FEATURES</div>
-            <h2>Advanced Visual Alert Features</h2>
-            <p>The X-Light Strobe System includes sophisticated features designed to provide clear, unmistakable visual communication in any situation.</p>
+            <div class="section-badge">CORE CAPABILITIES</div>
+            <h2>Enterprise Security Features</h2>
+            <p>Our corporate solutions provide comprehensive security coverage while integrating seamlessly with existing business systems and workflows.</p>
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🌈</div>
-                    <h4>Full RGBW Spectrum</h4>
-                    <p>16.7 million color combinations with white light enhancement for maximum visibility and customization.</p>
+                    <div class="feature-icon">🏢</div>
+                    <h4>Multi-Site Management</h4>
+                    <p>Centralized monitoring and management across multiple corporate locations with unified reporting and control.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h4>Custom Flash Patterns</h4>
-                    <p>Unlimited pattern options including steady, flash, pulse, and custom sequences for different alert types.</p>
+                    <div class="feature-icon">👔</div>
+                    <h4>Executive Protection</h4>
+                    <p>Enhanced security features for C-suite executives and VIP visitors with discrete monitoring and rapid response.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h4>Zone Color Coding</h4>
-                    <p>Assign specific colors to different zones or emergency types for instant visual identification.</p>
+                    <div class="feature-icon">🔒</div>
+                    <h4>Access Control Integration</h4>
+                    <p>Seamless integration with existing badge systems and access control infrastructure for enhanced security.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">🔇</div>
-                    <h4>Silent Alert Mode</h4>
-                    <p>Provide visual notifications without audio for discrete alerts and hearing accessibility.</p>
+                    <div class="feature-icon">📊</div>
+                    <h4>Business Intelligence</h4>
+                    <p>Advanced analytics and reporting to identify security trends and optimize business operations.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">💡</div>
-                    <h4>High Brightness</h4>
-                    <p>2000 lumen output ensures visibility in bright environments and outdoor applications.</p>
+                    <div class="feature-icon">🌡️</div>
+                    <h4>Environmental Monitoring</h4>
+                    <p>Comprehensive monitoring of air quality, temperature, and environmental conditions for employee health and safety.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">⚙️</div>
-                    <h4>Easy Programming</h4>
-                    <p>Simple configuration through the X-Guardian platform with preset patterns and custom options.</p>
+                    <div class="feature-icon">📱</div>
+                    <h4>Mobile Management</h4>
+                    <p>Complete system management and monitoring capabilities through secure mobile applications for executives and security staff.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">APPLICATIONS</div>
+            <h2>Corporate Environment Applications</h2>
+            <p>Our solutions are deployed across various corporate environments to provide comprehensive protection while supporting business operations.</p>
+            
+            <div class="use-cases">
+                <div class="use-case">
+                    <h4>Executive Offices & Boardrooms</h4>
+                    <p>Enhanced security for senior leadership areas with discrete monitoring and immediate response capabilities.</p>
+                    <ul class="use-case-benefits">
+                        <li>Executive panic buttons and alerts</li>
+                        <li>Visitor screening and management</li>
+                        <li>Confidential meeting protection</li>
+                        <li>VIP escort and monitoring</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case">
+                    <h4>Open Office Environments</h4>
+                    <p>Comprehensive monitoring solutions for modern open office layouts with employee privacy considerations.</p>
+                    <ul class="use-case-benefits">
+                        <li>Workplace violence prevention</li>
+                        <li>Environmental health monitoring</li>
+                        <li>Emergency evacuation systems</li>
+                        <li>Theft and security breach detection</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case">
+                    <h4>Manufacturing & Warehouses</h4>
+                    <p>Industrial-grade safety solutions for manufacturing environments with hazardous materials and heavy machinery.</p>
+                    <ul class="use-case-benefits">
+                        <li>Worker safety monitoring</li>
+                        <li>Hazardous material detection</li>
+                        <li>Equipment safety protocols</li>
+                        <li>Lone worker protection</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case">
+                    <h4>Data Centers & Server Rooms</h4>
+                    <p>Specialized monitoring for critical IT infrastructure with environmental controls and security protocols.</p>
+                    <ul class="use-case-benefits">
+                        <li>Environmental condition monitoring</li>
+                        <li>Unauthorized access detection</li>
+                        <li>Equipment health monitoring</li>
+                        <li>Emergency shutdown protocols</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Integration -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">INTEGRATION</div>
+            <h2>Enterprise System Integration</h2>
+            <p>Our solutions integrate seamlessly with existing corporate infrastructure and business systems to provide comprehensive security without disrupting operations.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h4>ERP Integration</h4>
+                    <p>Direct integration with enterprise resource planning systems for unified business and security management.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📧</div>
+                    <h4>Communication Systems</h4>
+                    <p>Integration with existing email, messaging, and communication platforms for seamless alert distribution.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h4>Building Management</h4>
+                    <p>Integration with HVAC, lighting, and building automation systems for comprehensive facility management.</p>
                 </div>
             </div>
         </div>
@@ -603,11 +733,11 @@
     <!-- CTA Section -->
     <section class="section cta-section">
         <div class="section-content">
-            <h2>Illuminate Your Emergency Communications</h2>
-            <p>Ensure your visual alerts are seen and understood with the most advanced strobe lighting system available. Experience the X-Light system's powerful visual communication capabilities.</p>
+            <h2>Secure Your Corporate Environment</h2>
+            <p>Protect your employees, assets, and business operations with enterprise-grade security solutions designed for modern corporate environments. Schedule a consultation to see how we can enhance your business security.</p>
             <div class="cta-buttons">
-                <a href="../contact.html" class="btn-cta btn-cta-white">Schedule X-Light Demo</a>
-                <a href="../products.html" class="btn-cta btn-cta-outline">View All Products</a>
+                <a href="../contact.html" class="btn-cta btn-cta-white">Schedule Corporate Security Consultation</a>
+                <a href="../industries.html" class="btn-cta btn-cta-outline">View All Industries</a>
             </div>
         </div>
     </section>
