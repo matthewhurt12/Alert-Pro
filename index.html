@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responza Systems | Integrated Response Security Solutions - XSponse Technology Partner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--accent);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 10rem 5% 5rem;
+            background: linear-gradient(180deg, var(--bg-white) 0%, var(--bg-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -20%;
+            width: 40%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            padding: 0.375rem 0.875rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .hero-text h1 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-text h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+        
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .btn-hero {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-hero-primary {
+            background: var(--primary);
+            color: var(--bg-white);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-hero-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+        }
+        
+        .btn-hero-secondary {
+            background: var(--bg-white);
+            color: var(--primary);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-hero-secondary:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .hero-visual {
+            position: relative;
+        }
+        
+        .guardian-dashboard {
+            background: var(--bg-white);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        
+        .dashboard-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--success);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .dashboard-card {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .dashboard-metric {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .dashboard-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+        
+        .alert-feed {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid var(--border);
+        }
+        
+        .alert-feed-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .alert-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+        
+        .alert-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .alert-icon.success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .alert-icon.warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .alert-icon.info { background: rgba(59, 130, 246, 0.1); color: var(--accent); }
+        
+        .alert-content {
+            flex: 1;
+        }
+        
+        .alert-message {
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+        
+        .alert-time {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        
+        /* Trust Bar */
+        .trust-bar {
+            padding: 3rem 5%;
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .trust-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .trust-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+        
+        .trust-metrics {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+        }
+        
+        .trust-metric {
+            text-align: center;
+        }
+        
+        .trust-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .trust-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 5rem 5%;
+            background: var(--bg-white);
+        }
+        
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            padding: 4rem;
+            border-radius: 20px;
+            color: var(--bg-white);
+        }
+        
+        .cta-content h2 {
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-content p {
+            font-size: 1.125rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .btn-cta {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-cta-white {
+            background: var(--bg-white);
+            color: var(--accent);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-white:hover {
+            background: transparent;
+            color: var(--bg-white);
+        }
+        
+        .btn-cta-outline {
+            background: transparent;
+            color: var(--bg-white);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-outline:hover {
+            background: var(--bg-white);
+            color: var(--accent);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .footer-column h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .trust-metrics {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span>Every Second Counts™</span>
+                </div>
+                <h1>Transforming Security with <span class="gradient-text">AI-Driven Insights</span> and Seamless Automation</h1>
+                <p>Deploy XSponse's integrated security ecosystem for real-time threat detection, automated response protocols, and comprehensive safety management. From environmental monitoring to emergency lockdowns, protect what matters most.</p>
+                <div class="hero-actions">
+                    <a href="contact.html" class="btn-hero btn-hero-primary">
+                        Get Security Assessment
+                        <span>→</span>
+                    </a>
+                    <a href="contact.html#roi" class="btn-hero btn-hero-secondary">
+                        Calculate Your ROI
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value"><50ms</div>
+                        <div class="stat-label">Response Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">Uptime SLA</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">PoE</div>
+                        <div class="stat-label">Full Ecosystem</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="guardian-dashboard">
+                    <div class="dashboard-header">
+                        <div class="dashboard-title">X-Guardian Command Center</div>
+                        <div class="status-indicator">
+                            <span class="status-dot"></span>
+                            <span>All Systems Active</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <div class="dashboard-metric">342</div>
+                            <div class="dashboard-label">Active Devices</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="dashboard-metric">2,847</div>
+                            <div class="dashboard-label">Protected Zones</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="dashboard-metric">47ms</div>
+                            <div class="dashboard-label">Avg Response</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="dashboard-metric">100%</div>
+                            <div class="dashboard-label">Compliance</div>
+                        </div>
+                    </div>
+                    <div class="alert-feed">
+                        <div class="alert-feed-title">System Capabilities</div>
+                        <div class="alert-item">
+                            <div class="alert-icon success">✓</div>
+                            <div class="alert-content">
+                                <div class="alert-message">Real-time environmental monitoring</div>
+                                <div class="alert-time">Continuous scanning</div>
+                            </div>
+                        </div>
+                        <div class="alert-item">
+                            <div class="alert-icon warning">!</div>
+                            <div class="alert-content">
+                                <div class="alert-message">Instant vape & THC detection</div>
+                                <div class="alert-time">< 50ms response</div>
+                            </div>
+                        </div>
+                        <div class="alert-item">
+                            <div class="alert-icon info">i</div>
+                            <div class="alert-content">
+                                <div class="alert-message">Automated health monitoring</div>
+                                <div class="alert-time">Self-diagnostic</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="trust-content">
+            <div class="trust-label">XSponse Technology Advantages</div>
+            <div class="trust-metrics">
+                <div class="trust-metric">
+                    <div class="trust-number">< 50ms</div>
+                    <div class="trust-desc">Detection Speed</div>
+                </div>
+                <div class="trust-metric">
+                    <div class="trust-number">100%</div>
+                    <div class="trust-desc">PoE Powered</div>
+                </div>
+                <div class="trust-metric">
+                    <div class="trust-number">Patented</div>
+                    <div class="trust-desc">Duct Sensor Tech</div>
+                </div>
+                <div class="trust-metric">
+                    <div class="trust-number">3-Year</div>
+                    <div class="trust-desc">Battery Life</div>
+                </div>
+                <div class="trust-metric">
+                    <div class="trust-number">Open API</div>
+                    <div class="trust-desc">Full Integration</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="demo">
+        <div class="cta-content">
+            <h2>Ready to Transform Your Security?</h2>
+            <p>Schedule a comprehensive security assessment and discover how Responza Systems can protect your organization with XSponse's advanced AI security ecosystem.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn-cta btn-cta-white">Schedule Assessment</a>
+                <a href="products.html" class="btn-cta btn-cta-outline">Download Specs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="components/loader.js"></script>
+</body>
+</html>

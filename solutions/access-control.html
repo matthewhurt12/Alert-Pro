@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Control & Monitoring | Responza Systems - Smart Security Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--accent);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 8rem 5% 3rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .breadcrumb a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+        
+        /* Content Sections */
+        .section {
+            padding: 5rem 5%;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--bg-light);
+        }
+        
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .section p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--bg-white);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+        
+        /* Access Levels */
+        .access-levels {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .access-level {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .access-level:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .access-level-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--bg-white);
+            margin: 0 auto 1rem;
+        }
+        
+        .access-level h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .access-level p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        
+        /* Zone Management */
+        .zone-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+        
+        .zone-visual {
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .zone-diagram {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .zone-item {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--accent);
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+        
+        .zone-item:hover {
+            background: var(--accent);
+            color: var(--bg-white);
+        }
+        
+        .zone-item.restricted {
+            border-color: var(--danger);
+        }
+        
+        .zone-item.restricted:hover {
+            background: var(--danger);
+        }
+        
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Integration Cards */
+        .integration-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .integration-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .integration-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .integration-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .integration-features {
+            list-style: none;
+        }
+        
+        .integration-features li {
+            color: var(--accent);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .integration-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .btn-cta {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-cta-white {
+            background: var(--bg-white);
+            color: var(--primary);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-white:hover {
+            background: transparent;
+            color: var(--bg-white);
+        }
+        
+        .btn-cta-outline {
+            background: transparent;
+            color: var(--bg-white);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-outline:hover {
+            background: var(--bg-white);
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .footer-column h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .access-levels {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .zone-showcase {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .integration-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="breadcrumb">
+            <a href="../solutions.html">Solutions</a> / Access Control
+        </div>
+        <h1>Access Control & Monitoring</h1>
+        <p>Secure your facilities with intelligent access control that adapts to threats, tracks occupancy, and integrates seamlessly with your existing security infrastructure.</p>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">INTELLIGENT SECURITY</div>
+            <h2>Smart Access Control That Learns and Adapts</h2>
+            <p>Our access control system goes beyond traditional card readers to provide intelligent, adaptive security that responds to threats, manages occupancy, and provides comprehensive visibility into facility access patterns.</p>
+            
+            <div class="zone-showcase">
+                <div class="zone-visual">
+                    <h4>Zone-Based Security Management</h4>
+                    <div class="zone-diagram">
+                        <div class="zone-item">Public Areas</div>
+                        <div class="zone-item">Office Spaces</div>
+                        <div class="zone-item">Meeting Rooms</div>
+                        <div class="zone-item restricted">Server Room</div>
+                        <div class="zone-item restricted">Executive Areas</div>
+                        <div class="zone-item restricted">Data Center</div>
+                        <div class="zone-item">Common Areas</div>
+                        <div class="zone-item">Cafeteria</div>
+                        <div class="zone-item">Reception</div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Granular Zone Control</h3>
+                    <p>Define unlimited security zones with different access requirements, time restrictions, and emergency protocols. Our system automatically manages permissions based on user roles, time of day, and current threat levels.</p>
+                    <ul style="list-style: none; margin-top: 1.5rem;">
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--accent);">✓</strong> Flexible zone definitions and boundaries</li>
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--accent);">✓</strong> Time-based access restrictions</li>
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--accent);">✓</strong> Emergency lockdown capabilities</li>
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--accent);">✓</strong> Visitor escort requirements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Access Control Features -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">CORE CAPABILITIES</div>
+            <h2>Comprehensive Access Management</h2>
+            <p>Our access control system provides all the features you need to secure your facility while maintaining operational efficiency and user convenience.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Multi-Factor Authentication</h3>
+                    <p>Combine card readers, biometrics, PINs, and mobile credentials for enhanced security without sacrificing convenience.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Real-Time Occupancy</h3>
+                    <p>Track exact occupancy levels in real-time, enabling capacity management, emergency roll call, and space optimization.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚪</div>
+                    <h3>Automated Lockdown</h3>
+                    <p>Instantly secure all or specific areas during emergencies while maintaining safe egress routes and first responder access.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Credentials</h3>
+                    <p>Enable smartphone-based access for staff and visitors, reducing physical card management and improving user experience.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🕒</div>
+                    <h3>Time-Based Access</h3>
+                    <p>Automatically grant or restrict access based on schedules, ensuring areas are only accessible when appropriate.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Analytics & Reporting</h3>
+                    <p>Comprehensive access logs, usage patterns, and security analytics help optimize facility operations and security policies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Access Levels -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">ROLE-BASED SECURITY</div>
+            <h2>Flexible Access Level Management</h2>
+            <p>Define unlimited access levels that automatically adjust permissions based on user roles, emergency conditions, and operational requirements.</p>
+            
+            <div class="access-levels">
+                <div class="access-level">
+                    <div class="access-level-icon">👤</div>
+                    <h4>Visitor Access</h4>
+                    <p>Limited access to public areas with escort requirements and time restrictions.</p>
+                </div>
+                
+                <div class="access-level">
+                    <div class="access-level-icon">💼</div>
+                    <h4>Standard Employee</h4>
+                    <p>Access to general work areas, common spaces, and assigned departments during business hours.</p>
+                </div>
+                
+                <div class="access-level">
+                    <div class="access-level-icon">🔧</div>
+                    <h4>Maintenance Staff</h4>
+                    <p>Extended access to utility areas, mechanical rooms, and after-hours facility access.</p>
+                </div>
+                
+                <div class="access-level">
+                    <div class="access-level-icon">👨‍💼</div>
+                    <h4>Management</h4>
+                    <p>Enhanced access to restricted areas, executive floors, and administrative functions.</p>
+                </div>
+                
+                <div class="access-level">
+                    <div class="access-level-icon">🛡️</div>
+                    <h4>Security Personnel</h4>
+                    <p>Unrestricted access for security operations, emergency response, and system management.</p>
+                </div>
+                
+                <div class="access-level">
+                    <div class="access-level-icon">🚨</div>
+                    <h4>Emergency Services</h4>
+                    <p>Override access for first responders during emergencies with automatic facility information sharing.</p>
+                </div>
+                
+                <div class="access-level">
+                    <div class="access-level-icon">⚙️</div>
+                    <h4>System Administrator</h4>
+                    <p>Full system control including configuration, user management, and emergency overrides.</p>
+                </div>
+                
+                <div class="access-level">
+                    <div class="access-level-icon">🏢</div>
+                    <h4>Facility Management</h4>
+                    <p>Building-wide access for facility operations, vendor management, and system maintenance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Statistics -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">SYSTEM PERFORMANCE</div>
+            <h2>Reliable Access Control Performance</h2>
+            <p>Our access control system delivers consistent, reliable performance with industry-leading uptime and response speeds.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">System Uptime</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;200ms</div>
+                    <div class="stat-label">Access Response Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50,000+</div>
+                    <div class="stat-label">Users Supported</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Monitoring & Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Capabilities -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">SYSTEM INTEGRATION</div>
+            <h2>Seamless Integration with Existing Systems</h2>
+            <p>Our access control system integrates with your existing security infrastructure and business systems for comprehensive facility management.</p>
+            
+            <div class="integration-cards">
+                <div class="integration-card">
+                    <h4>Video Management Systems</h4>
+                    <p>Automatic video recording triggered by access events, providing visual verification and forensic capabilities.</p>
+                    <ul class="integration-features">
+                        <li>Event-triggered recording</li>
+                        <li>Live video verification</li>
+                        <li>Forensic search capabilities</li>
+                        <li>Multi-camera coordination</li>
+                    </ul>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>Visitor Management</h4>
+                    <p>Streamlined visitor registration with automatic credential provisioning and escort notifications.</p>
+                    <ul class="integration-features">
+                        <li>Pre-registration capabilities</li>
+                        <li>Photo capture and badges</li>
+                        <li>Host notifications</li>
+                        <li>Compliance tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>HR & Payroll Systems</h4>
+                    <p>Automatic user provisioning and time tracking based on employment status and schedule changes.</p>
+                    <ul class="integration-features">
+                        <li>Automatic user creation</li>
+                        <li>Role-based permissions</li>
+                        <li>Time and attendance</li>
+                        <li>Termination workflows</li>
+                    </ul>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>Building Management</h4>
+                    <p>Integration with HVAC, lighting, and energy systems for optimized facility operations based on occupancy.</p>
+                    <ul class="integration-features">
+                        <li>Occupancy-based controls</li>
+                        <li>Energy optimization</li>
+                        <li>Automated scheduling</li>
+                        <li>Environmental monitoring</li>
+                    </ul>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>Emergency Systems</h4>
+                    <p>Coordinated response with fire alarms, mass notification, and emergency communication systems.</p>
+                    <ul class="integration-features">
+                        <li>Emergency unlock protocols</li>
+                        <li>Evacuation management</li>
+                        <li>First responder access</li>
+                        <li>Roll call capabilities</li>
+                    </ul>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>Mobile Applications</h4>
+                    <p>Comprehensive mobile apps for administrators, users, and visitors with real-time access management.</p>
+                    <ul class="integration-features">
+                        <li>Mobile credentials</li>
+                        <li>Remote door control</li>
+                        <li>Real-time notifications</li>
+                        <li>Visitor management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="section-content">
+            <h2>Secure Your Facility with Intelligent Access Control</h2>
+            <p>Take control of who has access to your facility and when. Implement a comprehensive access control system that grows with your security needs and integrates with your existing infrastructure.</p>
+            <div class="cta-buttons">
+                <a href="../contact.html" class="btn-cta btn-cta-white">Schedule Access Control Assessment</a>
+                <a href="../solutions.html" class="btn-cta btn-cta-outline">View All Solutions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="../components/loader.js"></script>
+</body>
+</html>

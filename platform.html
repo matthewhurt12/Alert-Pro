@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Guardian Platform | Responza Systems - AI-Powered Security Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--accent);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 8rem 5% 3rem;
+            background: linear-gradient(180deg, var(--bg-white) 0%, var(--bg-light) 100%);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Platform Section */
+        .platform {
+            padding: 5rem 5%;
+            background: var(--bg-light);
+        }
+        
+        .platform-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .platform-header h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .platform-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+        
+        .platform-features {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .platform-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .platform-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .platform-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .platform-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--bg-white);
+            margin-bottom: 1.5rem;
+        }
+        
+        .platform-card h3 {
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+        }
+        
+        .platform-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .platform-link {
+            color: var(--accent);
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .platform-link:hover {
+            gap: 0.75rem;
+        }
+        
+        /* Implementation Timeline */
+        .implementation {
+            padding: 5rem 5%;
+            background: var(--bg-white);
+        }
+        
+        .implementation-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        
+        .implementation-header h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--border);
+        }
+        
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .timeline-content {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border: 4px solid var(--bg-white);
+            border-radius: 50%;
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-content ul {
+            list-style: none;
+            color: var(--text-secondary);
+        }
+        
+        .timeline-content li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+        }
+        
+        /* ROI Section */
+        .roi {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--bg-white);
+        }
+        
+        .roi-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        
+        .roi-text h2 {
+            color: var(--bg-white);
+            margin-bottom: 1.5rem;
+        }
+        
+        .roi-text p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .roi-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .roi-metric {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .roi-metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .roi-metric-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+        
+        .roi-calculator {
+            background: var(--bg-white);
+            color: var(--text-primary);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .calculator-input {
+            margin-bottom: 1.5rem;
+        }
+        
+        .calculator-input label {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .calculator-input input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .calculator-result {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .result-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+        
+        /* Architecture Section */
+        .architecture {
+            padding: 5rem 5%;
+            background: var(--bg-light);
+        }
+        
+        .architecture-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        
+        .architecture-diagram {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+        }
+        
+        .diagram-layers {
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        .diagram-layer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .layer-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .layer-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .layer-components {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .component {
+            background: var(--bg-white);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .footer-column h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .platform-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .roi-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                grid-template-columns: 1fr;
+                padding-left: 50px;
+            }
+            
+            .timeline-dot {
+                left: 20px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>X-Guardian Platform</h1>
+        <p>The unified command and control center that orchestrates your entire security ecosystem with AI-powered intelligence</p>
+    </section>
+
+    <!-- Platform Section -->
+    <section class="platform" id="platform">
+        <div class="platform-header">
+            <div class="section-badge">X-GUARDIAN PLATFORM</div>
+            <h2>Unified Command & Control Center</h2>
+            <p>Orchestrate your entire security ecosystem from a single, intelligent platform that learns, adapts, and responds automatically</p>
+        </div>
+        <div class="platform-features">
+            <div class="platform-card">
+                <div class="platform-icon">🧠</div>
+                <h3>AI-Powered Detection</h3>
+                <p>Advanced machine learning algorithms analyze patterns across multiple sensors, identifying threats before escalation with 87% fewer false positives than traditional systems.</p>
+                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
+            </div>
+            <div class="platform-card">
+                <div class="platform-icon">⚡</div>
+                <h3>Automated Response</h3>
+                <p>Configure unlimited triggers and automated actions. When threats are detected, dozens of coordinated responses execute instantly without manual intervention.</p>
+                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
+            </div>
+            <div class="platform-card">
+                <div class="platform-icon">🔗</div>
+                <h3>Open API Integration</h3>
+                <p>Seamlessly connect with existing VMS, access control, PA systems, and IoT devices through standard protocols and comprehensive APIs.</p>
+                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
+            </div>
+            <div class="platform-card">
+                <div class="platform-icon">📍</div>
+                <h3>Real-Time Location</h3>
+                <p>Track staff and visitors with precision up to 3 feet indoors and 1 mile outdoors, enabling instant response team deployment and evacuation management.</p>
+                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
+            </div>
+            <div class="platform-card">
+                <div class="platform-icon">🔒</div>
+                <h3>Privacy Compliant</h3>
+                <p>FERPA, HIPAA, and GDPR compliant with mechanical camera shutters, end-to-end encryption, and granular role-based access controls.</p>
+                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
+            </div>
+            <div class="platform-card">
+                <div class="platform-icon">📊</div>
+                <h3>Actionable Analytics</h3>
+                <p>Transform security data into insights with customizable dashboards, predictive modeling, and comprehensive reporting for continuous improvement.</p>
+                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture">
+        <div class="architecture-header">
+            <div class="section-badge">SYSTEM ARCHITECTURE</div>
+            <h2>Enterprise-Grade Infrastructure</h2>
+            <p>Built for scalability, reliability, and seamless integration with your existing systems</p>
+        </div>
+        <div class="architecture-diagram">
+            <div class="diagram-layers">
+                <div class="diagram-layer">
+                    <div>
+                        <div class="layer-title">Presentation Layer</div>
+                        <div class="layer-description">User interfaces and dashboards for monitoring and control</div>
+                    </div>
+                    <div class="layer-components">
+                        <div class="component">Web Dashboard</div>
+                        <div class="component">Mobile App</div>
+                        <div class="component">Touch Panels</div>
+                    </div>
+                </div>
+                <div class="diagram-layer">
+                    <div>
+                        <div class="layer-title">Application Layer</div>
+                        <div class="layer-description">Core business logic and AI processing engines</div>
+                    </div>
+                    <div class="layer-components">
+                        <div class="component">AI Engine</div>
+                        <div class="component">Event Processing</div>
+                        <div class="component">Workflow Engine</div>
+                    </div>
+                </div>
+                <div class="diagram-layer">
+                    <div>
+                        <div class="layer-title">Integration Layer</div>
+                        <div class="layer-description">APIs and connectors for third-party system integration</div>
+                    </div>
+                    <div class="layer-components">
+                        <div class="component">REST APIs</div>
+                        <div class="component">Webhooks</div>
+                        <div class="component">Protocol Adapters</div>
+                    </div>
+                </div>
+                <div class="diagram-layer">
+                    <div>
+                        <div class="layer-title">Device Layer</div>
+                        <div class="layer-description">Physical security devices and sensors</div>
+                    </div>
+                    <div class="layer-components">
+                        <div class="component">X-Shield Stations</div>
+                        <div class="component">Environmental Sensors</div>
+                        <div class="component">Wearable Devices</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Timeline -->
+    <section class="implementation" id="implementation">
+        <div class="implementation-header">
+            <div class="section-badge">STREAMLINED DEPLOYMENT</div>
+            <h2>Professional Implementation Process</h2>
+            <p>Our structured approach ensures smooth deployment and comprehensive training for maximum ROI</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Week 1-2: Discovery & Assessment</h3>
+                    <ul>
+                        <li>Comprehensive security audit and risk assessment</li>
+                        <li>Infrastructure evaluation and network analysis</li>
+                        <li>Compliance requirements review and mapping</li>
+                        <li>Custom solution architecture design</li>
+                        <li>Integration planning with existing systems</li>
+                    </ul>
+                </div>
+                <div class="timeline-dot"></div>
+                <div></div>
+            </div>
+            <div class="timeline-item">
+                <div></div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Week 3-4: Installation & Integration</h3>
+                    <ul>
+                        <li>Pre-configured device deployment and mounting</li>
+                        <li>PoE infrastructure setup and network configuration</li>
+                        <li>System integration and API connections</li>
+                        <li>Comprehensive testing and validation</li>
+                        <li>Performance optimization and tuning</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Week 5-6: Training & Activation</h3>
+                    <ul>
+                        <li>Administrator certification and advanced training</li>
+                        <li>End-user training sessions and documentation</li>
+                        <li>Emergency protocol setup and testing</li>
+                        <li>Go-live support and monitoring</li>
+                        <li>Performance baseline establishment</li>
+                    </ul>
+                </div>
+                <div class="timeline-dot"></div>
+                <div></div>
+            </div>
+            <div class="timeline-item">
+                <div></div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Ongoing: Support & Optimization</h3>
+                    <ul>
+                        <li>24/7 technical support and monitoring</li>
+                        <li>Regular system updates and feature releases</li>
+                        <li>Performance monitoring and optimization</li>
+                        <li>Quarterly business reviews and planning</li>
+                        <li>Continuous improvement recommendations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section class="roi" id="roi">
+        <div class="roi-content">
+            <div class="roi-text">
+                <h2>Investment in Safety That Makes Sense</h2>
+                <p>The X-Guardian platform is designed to deliver immediate value through automated threat detection, reduced response times, and comprehensive facility protection. Our integrated approach eliminates redundant systems and maximizes your security investment.</p>
+                <div class="roi-metrics">
+                    <div class="roi-metric">
+                        <div class="roi-metric-value">Unified</div>
+                        <div class="roi-metric-label">Single platform management</div>
+                    </div>
+                    <div class="roi-metric">
+                        <div class="roi-metric-value">Automated</div>
+                        <div class="roi-metric-label">Reduced manual monitoring</div>
+                    </div>
+                    <div class="roi-metric">
+                        <div class="roi-metric-value">Scalable</div>
+                        <div class="roi-metric-label">Grows with your needs</div>
+                    </div>
+                    <div class="roi-metric">
+                        <div class="roi-metric-value">Compliant</div>
+                        <div class="roi-metric-label">Meets safety mandates</div>
+                    </div>
+                </div>
+            </div>
+            <div class="roi-calculator">
+                <div class="calculator-title">Request Platform Demo</div>
+                <div class="calculator-input">
+                    <label>Organization Type</label>
+                    <input type="text" placeholder="e.g., K-12 School, Healthcare">
+                </div>
+                <div class="calculator-input">
+                    <label>Facility Size</label>
+                    <input type="text" placeholder="Square footage or # of buildings">
+                </div>
+                <div class="calculator-result">
+                    <div class="result-label">Get Your Personalized</div>
+                    <div class="result-value">Platform Demo</div>
+                </div>
+                <a href="contact.html" class="btn-primary" style="width: 100%; text-align: center; margin-top: 1rem;">Schedule Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="components/loader.js"></script>
+</body>
+</html>

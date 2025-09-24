@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Monitoring | Responza Systems - Vape Detection & Air Quality</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--accent);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 8rem 5% 3rem;
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .breadcrumb a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+        
+        /* Content Sections */
+        .section {
+            padding: 5rem 5%;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--bg-light);
+        }
+        
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--success);
+            color: var(--bg-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .section p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--bg-white);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+        
+        /* Technology Showcase */
+        .tech-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+        
+        .tech-visual {
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .tech-icon {
+            font-size: 6rem;
+            color: var(--success);
+            margin-bottom: 1rem;
+        }
+        
+        .tech-specs {
+            list-style: none;
+        }
+        
+        .tech-specs li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .tech-specs li:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .spec-value {
+            font-weight: 600;
+            color: var(--success);
+        }
+        
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Use Cases */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .use-case {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--success);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .use-case h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .use-case p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        
+        .use-case-benefits {
+            list-style: none;
+        }
+        
+        .use-case-benefits li {
+            color: var(--success);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .use-case-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .btn-cta {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-cta-white {
+            background: var(--bg-white);
+            color: var(--primary);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-white:hover {
+            background: transparent;
+            color: var(--bg-white);
+        }
+        
+        .btn-cta-outline {
+            background: transparent;
+            color: var(--bg-white);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-outline:hover {
+            background: var(--bg-white);
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .footer-column h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tech-showcase {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .use-cases {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="breadcrumb">
+            <a href="../solutions.html">Solutions</a> / Environmental Monitoring
+        </div>
+        <h1>Environmental Monitoring</h1>
+        <p>Combat vaping, monitor air quality, and detect environmental hazards with our patented sensor technology that provides comprehensive coverage without blind spots.</p>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">PATENTED TECHNOLOGY</div>
+            <h2>Revolutionary Duct-Mount Sensor Technology</h2>
+            <p>Our environmental monitoring system utilizes patented duct-mount sensors that integrate directly with your HVAC system, providing building-wide coverage from a single point. This innovative approach eliminates blind spots and delivers unmatched detection accuracy.</p>
+            
+            <div class="tech-showcase">
+                <div class="tech-visual">
+                    <div class="tech-icon">💨</div>
+                    <h3>X-Detect Environmental Sensor</h3>
+                    <ul class="tech-specs">
+                        <li>
+                            <span class="spec-label">Detection Speed</span>
+                            <span class="spec-value">&lt; 50ms</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Accuracy Rate</span>
+                            <span class="spec-value">99.9%</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Coverage Area</span>
+                            <span class="spec-value">2,500 sq ft</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Power Source</span>
+                            <span class="spec-value">PoE</span>
+                        </li>
+                        <li>
+                            <span class="spec-label">Installation</span>
+                            <span class="spec-value">HVAC Duct Mount</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Why Duct-Mount Technology?</h3>
+                    <div class="features-grid" style="margin-top: 2rem;">
+                        <div class="feature-card">
+                            <div class="feature-icon">🌪️</div>
+                            <h4>Complete Coverage</h4>
+                            <p>HVAC airflow naturally draws all air through the sensor, ensuring nothing is missed regardless of where it occurs in the space.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h4>Tamper-Proof</h4>
+                            <p>Duct-mounted sensors are inaccessible to occupants, preventing tampering or vandalism that affects traditional room sensors.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detection Capabilities -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">COMPREHENSIVE DETECTION</div>
+            <h2>Advanced Multi-Spectrum Analysis</h2>
+            <p>Our environmental sensors use sophisticated multi-spectrum analysis to detect a wide range of substances and environmental conditions with exceptional accuracy.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚭</div>
+                    <h3>Vape & E-Cigarette Detection</h3>
+                    <p>Detects all types of vaping devices including traditional e-cigarettes, pod systems, and disposable vapes with 99.9% accuracy and minimal false positives.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌿</div>
+                    <h3>THC & Cannabis Detection</h3>
+                    <p>Identifies THC vapor and cannabis smoke instantly, helping maintain drug-free environments in schools, workplaces, and healthcare facilities.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌡️</div>
+                    <h3>Air Quality Monitoring</h3>
+                    <p>Continuous monitoring of temperature, humidity, CO2 levels, and volatile organic compounds (VOCs) for comprehensive environmental health.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚠️</div>
+                    <h3>Chemical Hazard Detection</h3>
+                    <p>Early warning system for dangerous chemical vapors, gas leaks, and other airborne hazards that could threaten occupant safety.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3>Smoke & Fire Detection</h3>
+                    <p>Advanced smoke detection capabilities that complement existing fire systems with faster response times and fewer false alarms.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-Time Analytics</h3>
+                    <p>Continuous data collection and analysis provide insights into air quality trends, usage patterns, and environmental health metrics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Statistics -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">PROVEN PERFORMANCE</div>
+            <h2>Environmental Monitoring by the Numbers</h2>
+            <p>Our environmental monitoring system delivers consistent, reliable performance across thousands of installations worldwide.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Detection Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;0.1%</div>
+                    <div class="stat-label">False Positive Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2,500</div>
+                    <div class="stat-label">Sq Ft Coverage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Continuous Monitoring</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">APPLICATIONS</div>
+            <h2>Environmental Monitoring Use Cases</h2>
+            <p>Our environmental monitoring solutions address critical needs across various industries and facility types.</p>
+            
+            <div class="use-cases">
+                <div class="use-case">
+                    <h4>K-12 Schools</h4>
+                    <p>Maintain drug-free learning environments by detecting vaping and cannabis use in bathrooms, locker rooms, and other areas where students might attempt to use prohibited substances.</p>
+                    <ul class="use-case-benefits">
+                        <li>Reduces disciplinary incidents</li>
+                        <li>Protects student health</li>
+                        <li>Maintains compliance standards</li>
+                        <li>Provides early intervention opportunities</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case">
+                    <h4>Healthcare Facilities</h4>
+                    <p>Ensure clean air environments critical for patient care while detecting smoking, vaping, and chemical hazards that could compromise patient safety and recovery.</p>
+                    <ul class="use-case-benefits">
+                        <li>Protects patient health</li>
+                        <li>Maintains sterile environments</li>
+                        <li>Ensures regulatory compliance</li>
+                        <li>Reduces infection risks</li>
+                    </ul>
+                </div>
+                
+                <div class="use-case">
+                    <h4>Corporate Offices</h4>
+                    <p>Create healthy work environments by monitoring air quality, detecting unauthorized smoking, and ensuring compliance with workplace safety regulations.</p>
+                    <ul class="use-case-benefits">
+                        <li>Improves employee wellness</li>
+                        <li>Reduces insurance costs</li>
+                        <li>Enhances productivity</li>
+                        <li>Maintains professional standards</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration & Management -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">SMART INTEGRATION</div>
+            <h2>Seamless System Integration</h2>
+            <p>Our environmental monitoring system integrates seamlessly with your existing building management systems and security infrastructure for comprehensive facility oversight.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3>Building Management Systems</h3>
+                    <p>Direct integration with HVAC controls allows automatic ventilation adjustments based on air quality readings and detection events.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Alerts</h3>
+                    <p>Instant notifications to administrators and facility managers via mobile apps, SMS, and email when detection events occur.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Analytics Dashboard</h3>
+                    <p>Comprehensive reporting and analytics provide insights into environmental trends, compliance metrics, and system performance.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Remote Management</h3>
+                    <p>Cloud-based management platform allows remote monitoring, configuration updates, and system maintenance from anywhere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="section-content">
+            <h2>Breathe Easy with Advanced Environmental Monitoring</h2>
+            <p>Take control of your indoor air quality and create safer, healthier environments for everyone. Get a comprehensive assessment of your current environmental monitoring needs.</p>
+            <div class="cta-buttons">
+                <a href="../contact.html" class="btn-cta btn-cta-white">Schedule Air Quality Assessment</a>
+                <a href="../solutions.html" class="btn-cta btn-cta-outline">View All Solutions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="../components/loader.js"></script>
+</body>
+</html>

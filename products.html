@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSponse Products | Responza Systems - Security Hardware & Software</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--accent);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 8rem 5% 3rem;
+            background: linear-gradient(180deg, var(--bg-white) 0%, var(--bg-light) 100%);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Products Section */
+        .products {
+            padding: 5rem 5%;
+            background: var(--bg-white);
+        }
+        
+        .products-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .product-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category-btn {
+            padding: 0.625rem 1.5rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-btn.active {
+            background: var(--primary);
+            color: var(--bg-white);
+            border-color: var(--primary);
+        }
+        
+        .product-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: var(--bg-light);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--bg-white);
+        }
+        
+        .product-info {
+            padding: 2rem;
+        }
+        
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .product-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .product-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-tag {
+            background: var(--bg-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            border: 1px solid var(--border);
+        }
+        
+        .product-specs {
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .spec-value {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--primary);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            flex: 1;
+            text-align: center;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Detailed Product Sections */
+        .product-detail {
+            padding: 4rem 5%;
+            background: var(--bg-light);
+        }
+        
+        .product-detail:nth-child(even) {
+            background: var(--bg-white);
+        }
+        
+        .product-detail-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .product-detail-text h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        .product-detail-text p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .detail-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .detail-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-white);
+            font-size: 0.75rem;
+        }
+        
+        .product-visual {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .product-visual-icon {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .footer-column h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-detail-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>XSponse Product Ecosystem</h1>
+        <p>Enterprise-grade security hardware and software designed for seamless integration and maximum protection</p>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="products-header">
+            <div class="section-badge">XSPONSE ECOSYSTEM</div>
+            <h2>Complete Hardware Suite</h2>
+            <p>Pre-configured, PoE-powered devices that deploy in minutes, not months</p>
+        </div>
+        <div class="product-categories">
+            <button class="category-btn active">All Products</button>
+            <button class="category-btn">Detection</button>
+            <button class="category-btn">Response</button>
+            <button class="category-btn">Communication</button>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">🛡️</div>
+                <div class="product-info">
+                    <div class="product-name">X-Shield Command</div>
+                    <div class="product-desc">Central command station with 7" touchscreen, environmental sensors, and integrated panic button for comprehensive facility management.</div>
+                    <div class="product-features">
+                        <span class="feature-tag">7" Touchscreen</span>
+                        <span class="feature-tag">AI Voice Control</span>
+                        <span class="feature-tag">HD Camera</span>
+                        <span class="feature-tag">Environmental Sensors</span>
+                    </div>
+                    <div class="product-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Power</span>
+                            <span class="spec-value">PoE+ (25W)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Connectivity</span>
+                            <span class="spec-value">Ethernet, Wi-Fi, Cellular</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Display</span>
+                            <span class="spec-value">7" Capacitive Touch</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="products/x-shield.html" class="btn-primary">Learn More</a>
+                        <a href="contact.html" class="btn-secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">📛</div>
+                <div class="product-info">
+                    <div class="product-name">X-Wearable Badge</div>
+                    <div class="product-desc">Location-aware panic badges with 3-year battery life, GPS tracking, and instant emergency alerts for staff protection.</div>
+                    <div class="product-features">
+                        <span class="feature-tag">3-Year Battery</span>
+                        <span class="feature-tag">GPS + Indoor Location</span>
+                        <span class="feature-tag">Panic Button</span>
+                        <span class="feature-tag">Geofencing</span>
+                    </div>
+                    <div class="product-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Battery Life</span>
+                            <span class="spec-value">3 Years</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Range</span>
+                            <span class="spec-value">1 mile outdoor</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Accuracy</span>
+                            <span class="spec-value">3 feet indoor</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="products/x-wearable.html" class="btn-primary">Learn More</a>
+                        <a href="contact.html" class="btn-secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">💨</div>
+                <div class="product-info">
+                    <div class="product-name">X-Detect Environmental</div>
+                    <div class="product-desc">Patented duct-mount sensor for vape, THC, and comprehensive air quality monitoring with sub-50ms detection speed.</div>
+                    <div class="product-features">
+                        <span class="feature-tag">Vape Detection</span>
+                        <span class="feature-tag">THC Detection</span>
+                        <span class="feature-tag">Air Quality</span>
+                        <span class="feature-tag">HVAC Mount</span>
+                    </div>
+                    <div class="product-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Detection Speed</span>
+                            <span class="spec-value">&lt; 50ms</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Accuracy</span>
+                            <span class="spec-value">99.9%</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Coverage</span>
+                            <span class="spec-value">2,500 sq ft</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="products/x-detect.html" class="btn-primary">Learn More</a>
+                        <a href="contact.html" class="btn-secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">🚨</div>
+                <div class="product-info">
+                    <div class="product-name">X-Alert System</div>
+                    <div class="product-desc">Advanced anomaly detection with automated lockdown capabilities and integrated mass notification system.</div>
+                    <div class="product-features">
+                        <span class="feature-tag">Auto Lockdown</span>
+                        <span class="feature-tag">Occupancy Tracking</span>
+                        <span class="feature-tag">Mass Alerts</span>
+                        <span class="feature-tag">AI Analytics</span>
+                    </div>
+                    <div class="product-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Response Time</span>
+                            <span class="spec-value">&lt; 1 second</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Zones</span>
+                            <span class="spec-value">Unlimited</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Integration</span>
+                            <span class="spec-value">Open API</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="products/x-alert.html" class="btn-primary">Learn More</a>
+                        <a href="contact.html" class="btn-secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">📢</div>
+                <div class="product-info">
+                    <div class="product-name">X-Announce PA</div>
+                    <div class="product-desc">PA system integration adapter for mass notifications, emergency broadcasts, and two-way communication capabilities.</div>
+                    <div class="product-features">
+                        <span class="feature-tag">PA Integration</span>
+                        <span class="feature-tag">Live Audio</span>
+                        <span class="feature-tag">911 Support</span>
+                        <span class="feature-tag">Two-Way Comm</span>
+                    </div>
+                    <div class="product-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Audio Quality</span>
+                            <span class="spec-value">HD Audio</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Zones</span>
+                            <span class="spec-value">64 Zones</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Protocols</span>
+                            <span class="spec-value">SIP, Analog</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="products/x-announce.html" class="btn-primary">Learn More</a>
+                        <a href="contact.html" class="btn-secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">📺</div>
+                <div class="product-info">
+                    <div class="product-name">X-Display Digital</div>
+                    <div class="product-desc">Dual-sided digital signage with emergency override, real-time messaging, and integrated camera for visual communication.</div>
+                    <div class="product-features">
+                        <span class="feature-tag">Dual-Sided Display</span>
+                        <span class="feature-tag">Emergency Override</span>
+                        <span class="feature-tag">Strobe Alert</span>
+                        <span class="feature-tag">HD Camera</span>
+                    </div>
+                    <div class="product-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Screen Size</span>
+                            <span class="spec-value">32" Dual</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Resolution</span>
+                            <span class="spec-value">1080p HD</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Brightness</span>
+                            <span class="spec-value">1000 nits</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="products/x-display.html" class="btn-primary">Learn More</a>
+                        <a href="contact.html" class="btn-secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">💡</div>
+                <div class="product-info">
+                    <div class="product-name">X-Light Strobe</div>
+                    <div class="product-desc">RGBW strobe lighting system for visual emergency alerts, zone identification, and silent notification protocols.</div>
+                    <div class="product-features">
+                        <span class="feature-tag">RGBW Multi-Color</span>
+                        <span class="feature-tag">Custom Patterns</span>
+                        <span class="feature-tag">Silent Alerts</span>
+                        <span class="feature-tag">Zone Coding</span>
+                    </div>
+                    <div class="product-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">Colors</span>
+                            <span class="spec-value">16.7 Million</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Brightness</span>
+                            <span class="spec-value">2000 Lumens</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Patterns</span>
+                            <span class="spec-value">Unlimited</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="products/x-light.html" class="btn-primary">Learn More</a>
+                        <a href="contact.html" class="btn-secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">🔌</div>
+                <div class="product-info">
+                    <div class="product-name">X-Connect I/O</div>
+                    <div class="product-desc">Universal I/O modules for third-party sensor integration, relay control, and custom automation workflows.</div>
+                    <div class="product-features">
+                        <span class="feature-tag">8 Inputs/Outputs</span>
+                        <span class="feature-tag">Form C Relays</span>
+                        <span class="feature-tag">API Integration</span>
+                        <span class="feature-tag">Custom Logic</span>
+                    </div>
+                    <div class="product-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">I/O Ports</span>
+                            <span class="spec-value">8 Digital</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Relay Rating</span>
+                            <span class="spec-value">5A @ 250VAC</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Protocols</span>
+                            <span class="spec-value">Modbus, API</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="products/x-connect.html" class="btn-primary">Learn More</a>
+                        <a href="contact.html" class="btn-secondary">Get Quote</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Product Sections -->
+    <section class="product-detail" id="x-shield">
+        <div class="product-detail-content">
+            <div class="product-detail-text">
+                <h3>X-Shield Command Station</h3>
+                <p>The central hub of your security ecosystem, X-Shield provides intuitive touchscreen control, environmental monitoring, and instant emergency response capabilities in a single, elegant device.</p>
+                <ul class="detail-features">
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>7-inch capacitive touchscreen with intuitive interface</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Integrated HD camera with privacy shutter</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Environmental sensors for air quality monitoring</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>AI-powered voice control and recognition</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Emergency panic button with tamper detection</span>
+                    </li>
+                </ul>
+                <a href="products/x-shield.html" class="btn-primary">View X-Shield Details</a>
+            </div>
+            <div class="product-visual">
+                <span class="product-visual-icon">🛡️</span>
+                <h4>Command & Control</h4>
+                <p>Centralized management for your entire security ecosystem</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-detail" id="x-detect">
+        <div class="product-detail-content">
+            <div class="product-visual">
+                <span class="product-visual-icon">💨</span>
+                <h4>Environmental Monitoring</h4>
+                <p>Patented duct-mount technology for comprehensive air quality detection</p>
+            </div>
+            <div class="product-detail-text">
+                <h3>X-Detect Environmental Sensor</h3>
+                <p>Revolutionary duct-mount sensor technology provides comprehensive environmental monitoring with industry-leading detection speed and accuracy for vaping, THC, and air quality concerns.</p>
+                <ul class="detail-features">
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Sub-50ms detection speed for immediate response</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>99.9% accuracy with minimal false positives</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>HVAC integration for building-wide coverage</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Multi-spectrum analysis for various substances</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Self-calibrating sensors with health monitoring</span>
+                    </li>
+                </ul>
+                <a href="products/x-detect.html" class="btn-primary">View X-Detect Details</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="components/loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Responza Systems | XSponse Technology Partner - Company Information</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--accent);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 8rem 5% 3rem;
+            background: linear-gradient(180deg, var(--bg-white) 0%, var(--bg-light) 100%);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 5rem 5%;
+            background: var(--bg-white);
+        }
+        
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .about-visual {
+            background: var(--bg-light);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .about-icon {
+            font-size: 6rem;
+            margin-bottom: 2rem;
+        }
+        
+        .about-visual h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .about-visual p {
+            color: var(--text-secondary);
+        }
+        
+        /* Mission Section */
+        .mission {
+            padding: 5rem 5%;
+            background: var(--bg-light);
+        }
+        
+        .mission-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .mission-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .mission-header h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .mission-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .mission-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--bg-white);
+            margin: 0 auto 1.5rem;
+        }
+        
+        .mission-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .mission-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Team Section */
+        .team {
+            padding: 5rem 5%;
+            background: var(--bg-white);
+        }
+        
+        .team-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        
+        .team-header h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .team-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        .team-member {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--bg-white);
+            margin: 0 auto 1rem;
+        }
+        
+        .team-name {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .team-role {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .team-bio {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        /* Partnership Section */
+        .partnership {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--bg-white);
+        }
+        
+        .partnership-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        
+        .partnership-text h2 {
+            color: var(--bg-white);
+            margin-bottom: 1.5rem;
+        }
+        
+        .partnership-text p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .partnership-benefits {
+            list-style: none;
+        }
+        
+        .partnership-benefits li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .benefit-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-white);
+            font-size: 0.75rem;
+        }
+        
+        .partnership-visual {
+            text-align: center;
+        }
+        
+        .xsponse-logo {
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .xsponse-logo-text {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .partnership-status {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .status-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .status-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        /* Certifications Section */
+        .certifications {
+            padding: 5rem 5%;
+            background: var(--bg-light);
+        }
+        
+        .certifications-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        
+        .certifications-header h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .certifications-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+        }
+        
+        .certification {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .certification:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        .cert-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cert-name {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .cert-description {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .footer-column h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .about-content,
+            .partnership-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .mission-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .certifications-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>About Responza Systems</h1>
+        <p>Your trusted partner in comprehensive security solutions, dedicated to protecting what matters most through innovative technology and expert service.</p>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Protecting Lives Through Innovation</h2>
+                <p>Founded with a mission to revolutionize security and emergency response, Responza Systems has become a leading provider of integrated safety solutions. As an authorized XSponse technology partner, we deliver cutting-edge AI-powered security systems that protect organizations nationwide.</p>
+                <p>Our team of security experts, engineers, and support specialists work tirelessly to ensure that every second counts when it comes to protecting lives and property. From initial consultation to ongoing support, we're committed to your safety and success.</p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">500+</div>
+                        <div class="stat-label">Organizations Protected</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">System Uptime</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Support Available</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">< 50ms</div>
+                        <div class="stat-label">Response Time</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="about-icon">🛡️</div>
+                <h3>Every Second Counts™</h3>
+                <p>Our commitment to rapid response and comprehensive protection drives everything we do. When emergencies strike, our systems ensure immediate detection, automated response, and coordinated communication to save lives.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission">
+        <div class="mission-content">
+            <div class="mission-header">
+                <div class="section-badge">OUR VALUES</div>
+                <h2>Mission, Vision & Values</h2>
+                <p>Our core principles guide every decision and drive our commitment to excellence in security solutions</p>
+            </div>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>To provide comprehensive, AI-powered security solutions that protect lives, prevent incidents, and ensure peace of mind for organizations and communities worldwide.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">🔮</div>
+                    <h3>Our Vision</h3>
+                    <p>A world where advanced technology seamlessly integrates with human expertise to create safer environments for everyone, everywhere.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">⚡</div>
+                    <h3>Our Values</h3>
+                    <p>Innovation, reliability, transparency, and unwavering commitment to customer success drive everything we do at Responza Systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="team-header">
+            <h2>Our Leadership Team</h2>
+            <p>Experienced professionals dedicated to advancing security technology and protecting communities</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-avatar">👨‍💼</div>
+                <div class="team-name">Michael Rodriguez</div>
+                <div class="team-role">Chief Executive Officer</div>
+                <div class="team-bio">20+ years in security technology, former VP at leading enterprise security firm.</div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍💻</div>
+                <div class="team-name">Sarah Chen</div>
+                <div class="team-role">Chief Technology Officer</div>
+                <div class="team-bio">AI and IoT expert with PhD in Computer Science, former Google engineering lead.</div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👨‍🔧</div>
+                <div class="team-name">David Thompson</div>
+                <div class="team-role">VP of Operations</div>
+                <div class="team-bio">Former military logistics officer with expertise in large-scale system deployment.</div>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍🎓</div>
+                <div class="team-name">Lisa Park</div>
+                <div class="team-role">VP of Customer Success</div>
+                <div class="team-bio">Education technology veteran focused on compliance and customer satisfaction.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership Section -->
+    <section class="partnership">
+        <div class="partnership-content">
+            <div class="partnership-text">
+                <h2>Authorized XSponse Partner</h2>
+                <p>As an authorized partner of XSponse Technologies, we bring you the most advanced AI-powered security platform available today. This partnership ensures you receive cutting-edge technology backed by comprehensive support and service excellence.</p>
+                <ul class="partnership-benefits">
+                    <li>
+                        <span class="benefit-icon">✓</span>
+                        <span>Direct access to latest XSponse innovations and updates</span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon">✓</span>
+                        <span>Certified installation and integration expertise</span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon">✓</span>
+                        <span>Factory-trained technical support team</span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon">✓</span>
+                        <span>Comprehensive warranty and service guarantees</span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon">✓</span>
+                        <span>Priority access to new products and features</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="partnership-visual">
+                <div class="xsponse-logo">
+                    <div class="xsponse-logo-text">XSponse</div>
+                </div>
+                <div class="partnership-status">
+                    <div class="status-label">Partnership Status</div>
+                    <div class="status-value">Authorized Partner</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="certifications">
+        <div class="certifications-header">
+            <h2>Certifications & Compliance</h2>
+            <p>We maintain the highest standards of security, privacy, and compliance across all industries we serve</p>
+        </div>
+        <div class="certifications-grid">
+            <div class="certification">
+                <div class="cert-icon">🏫</div>
+                <div class="cert-name">Alyssa's Law</div>
+                <div class="cert-description">Compliant emergency response systems</div>
+            </div>
+            <div class="certification">
+                <div class="cert-icon">🎓</div>
+                <div class="cert-name">FERPA</div>
+                <div class="cert-description">Student privacy protection</div>
+            </div>
+            <div class="certification">
+                <div class="cert-icon">🏥</div>
+                <div class="cert-name">HIPAA</div>
+                <div class="cert-description">Healthcare data security</div>
+            </div>
+            <div class="certification">
+                <div class="cert-icon">🌍</div>
+                <div class="cert-name">GDPR</div>
+                <div class="cert-description">Global privacy standards</div>
+            </div>
+            <div class="certification">
+                <div class="cert-icon">🔒</div>
+                <div class="cert-name">ISO 27001</div>
+                <div class="cert-description">Information security management</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="components/loader.js"></script>
+</body>
+</html>

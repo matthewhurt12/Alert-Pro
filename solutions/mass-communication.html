@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Communication System | Responza Systems - Emergency Notifications</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--accent);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 8rem 5% 3rem;
+            background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .breadcrumb a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+        
+        /* Content Sections */
+        .section {
+            padding: 5rem 5%;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--bg-light);
+        }
+        
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--warning);
+            color: var(--bg-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .section p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        /* Communication Channels */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .channel-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .channel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .channel-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--bg-white);
+            margin: 0 auto 1.5rem;
+        }
+        
+        .channel-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .channel-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .channel-features {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .channel-features li {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .channel-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--warning);
+            font-weight: bold;
+        }
+        
+        /* Message Types */
+        .message-types {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .message-type {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--warning);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .message-type h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .message-type p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .message-examples {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .message-examples h5 {
+            color: var(--primary);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .message-examples ul {
+            list-style: none;
+        }
+        
+        .message-examples li {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            font-style: italic;
+        }
+        
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Integration Showcase */
+        .integration-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+        
+        .integration-visual {
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .integration-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .central-hub {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .connection-points {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            width: 100%;
+        }
+        
+        .connection-point {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--warning);
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .btn-cta {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-cta-white {
+            background: var(--bg-white);
+            color: var(--primary);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-white:hover {
+            background: transparent;
+            color: var(--bg-white);
+        }
+        
+        .btn-cta-outline {
+            background: transparent;
+            color: var(--bg-white);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-outline:hover {
+            background: var(--bg-white);
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .footer-column h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .channels-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .message-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .integration-showcase {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="breadcrumb">
+            <a href="../solutions.html">Solutions</a> / Mass Communication
+        </div>
+        <h1>Mass Communication System</h1>
+        <p>Deliver critical information instantly across all communication channels with our integrated mass notification platform that ensures no one is left uninformed during emergencies.</p>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">MULTI-CHANNEL DELIVERY</div>
+            <h2>Comprehensive Communication Coverage</h2>
+            <p>Our mass communication system ensures critical information reaches everyone through multiple simultaneous channels. Whether it's an emergency alert, routine announcement, or targeted message, our platform delivers consistent, clear communication across your entire organization.</p>
+            
+            <div class="integration-showcase">
+                <div class="integration-visual">
+                    <div class="integration-diagram">
+                        <div class="central-hub">📢</div>
+                        <h4>Unified Communication Hub</h4>
+                        <div class="connection-points">
+                            <div class="connection-point">PA Systems</div>
+                            <div class="connection-point">Digital Displays</div>
+                            <div class="connection-point">Mobile Alerts</div>
+                            <div class="connection-point">Email/SMS</div>
+                            <div class="connection-point">Desktop Alerts</div>
+                            <div class="connection-point">Outdoor Speakers</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Why Multi-Channel Communication?</h3>
+                    <p>During emergencies, people may be in different locations, using different devices, or have different accessibility needs. Our multi-channel approach ensures your message reaches everyone, regardless of their situation or preferences.</p>
+                    <ul style="list-style: none; margin-top: 1.5rem;">
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--warning);">✓</strong> Redundancy ensures message delivery even if one channel fails</li>
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--warning);">✓</strong> Accommodates different communication preferences</li>
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--warning);">✓</strong> Provides accessibility options for all users</li>
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--warning);">✓</strong> Increases message visibility and response rates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Communication Channels -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">DELIVERY CHANNELS</div>
+            <h2>Multiple Ways to Reach Your Audience</h2>
+            <p>Our platform integrates with existing communication infrastructure while adding powerful new capabilities for comprehensive message delivery.</p>
+            
+            <div class="channels-grid">
+                <div class="channel-card">
+                    <div class="channel-icon">📢</div>
+                    <h3>PA System Integration</h3>
+                    <p>Seamlessly integrates with existing public address systems for immediate audio announcements throughout your facility.</p>
+                    <ul class="channel-features">
+                        <li>Zone-based targeting</li>
+                        <li>Pre-recorded messages</li>
+                        <li>Live announcements</li>
+                        <li>Volume control</li>
+                        <li>Emergency override</li>
+                    </ul>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-icon">📱</div>
+                    <h3>Mobile Notifications</h3>
+                    <p>Instant push notifications, SMS, and phone calls ensure messages reach people wherever they are.</p>
+                    <ul class="channel-features">
+                        <li>Push notifications</li>
+                        <li>SMS text messages</li>
+                        <li>Voice calls</li>
+                        <li>App-based alerts</li>
+                        <li>Location-based targeting</li>
+                    </ul>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-icon">📺</div>
+                    <h3>Digital Displays</h3>
+                    <p>Override digital signage, TVs, and displays with emergency messages and visual alerts.</p>
+                    <ul class="channel-features">
+                        <li>Emergency override</li>
+                        <li>Visual alerts</li>
+                        <li>Scrolling messages</li>
+                        <li>Multi-language support</li>
+                        <li>Accessibility compliance</li>
+                    </ul>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-icon">💻</div>
+                    <h3>Desktop Alerts</h3>
+                    <p>Pop-up notifications on computer screens ensure desk-bound employees receive critical information.</p>
+                    <ul class="channel-features">
+                        <li>Pop-up notifications</li>
+                        <li>Screen takeover</li>
+                        <li>Acknowledgment tracking</li>
+                        <li>Priority messaging</li>
+                        <li>Network-wide delivery</li>
+                    </ul>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-icon">✉️</div>
+                    <h3>Email & Messaging</h3>
+                    <p>Automated email distribution and integration with messaging platforms for comprehensive reach.</p>
+                    <ul class="channel-features">
+                        <li>Mass email distribution</li>
+                        <li>Teams/Slack integration</li>
+                        <li>Group messaging</li>
+                        <li>Delivery confirmation</li>
+                        <li>Template management</li>
+                    </ul>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-icon">🔊</div>
+                    <h3>Outdoor Systems</h3>
+                    <p>Reach people in parking areas, courtyards, and outdoor spaces with weather-resistant speakers.</p>
+                    <ul class="channel-features">
+                        <li>Weather-resistant speakers</li>
+                        <li>Wide area coverage</li>
+                        <li>Emergency sirens</li>
+                        <li>Parking lot alerts</li>
+                        <li>Campus-wide reach</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Types -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">MESSAGE TYPES</div>
+            <h2>Tailored Messages for Every Situation</h2>
+            <p>Our system supports various message types and formats, each optimized for specific communication needs and emergency scenarios.</p>
+            
+            <div class="message-types">
+                <div class="message-type">
+                    <h4>Emergency Alerts</h4>
+                    <p>Critical, high-priority messages that require immediate attention and response from all recipients.</p>
+                    <div class="message-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>"LOCKDOWN: Secure all doors and remain in place until further notice."</li>
+                            <li>"EVACUATION: Exit building immediately via nearest emergency exit."</li>
+                            <li>"SHELTER: Move to designated safe areas immediately."</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="message-type">
+                    <h4>Safety Notifications</h4>
+                    <p>Important safety-related information that helps maintain a secure environment.</p>
+                    <div class="message-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>"Weather Alert: Severe thunderstorm warning in effect."</li>
+                            <li>"Maintenance Notice: Hot water will be shut off from 2-4 PM."</li>
+                            <li>"Security Update: Visitor badges now required in all areas."</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="message-type">
+                    <h4>Operational Updates</h4>
+                    <p>Day-to-day operational information that keeps everyone informed about facility status and changes.</p>
+                    <div class="message-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>"Schedule Change: Early dismissal today at 2:30 PM."</li>
+                            <li>"Event Reminder: Fire drill scheduled for 10 AM tomorrow."</li>
+                            <li>"Facility Update: North parking lot closed for repairs."</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="message-type">
+                    <h4>Wellness Checks</h4>
+                    <p>Two-way communication that allows administrators to check on staff and visitor status during incidents.</p>
+                    <div class="message-examples">
+                        <h5>Examples:</h5>
+                        <ul>
+                            <li>"Status Check: Reply with your current location and status."</li>
+                            <li>"Safety Confirmation: Confirm you have reached the assembly area."</li>
+                            <li>"Wellness Survey: Rate your current safety level (1-5)."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Statistics -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">DELIVERY PERFORMANCE</div>
+            <h2>Reliable Communication When It Matters Most</h2>
+            <p>Our mass communication system delivers consistent, reliable performance across all channels with industry-leading speed and reliability.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">&lt;5s</div>
+                    <div class="stat-label">Message Delivery Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Delivery Success Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Languages Supported</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">System Availability</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Features -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">ADVANCED CAPABILITIES</div>
+            <h2>Intelligent Communication Features</h2>
+            <p>Beyond basic message delivery, our system includes sophisticated features that enhance communication effectiveness and ensure messages reach their intended audience.</p>
+            
+            <div class="channels-grid">
+                <div class="channel-card">
+                    <div class="channel-icon">🎯</div>
+                    <h3>Targeted Messaging</h3>
+                    <p>Send specific messages to defined groups based on location, role, department, or other criteria.</p>
+                    <ul class="channel-features">
+                        <li>Group-based targeting</li>
+                        <li>Location-based delivery</li>
+                        <li>Role-based messaging</li>
+                        <li>Custom distribution lists</li>
+                    </ul>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-icon">🔄</div>
+                    <h3>Two-Way Communication</h3>
+                    <p>Enable recipients to respond, confirm receipt, and provide status updates back to administrators.</p>
+                    <ul class="channel-features">
+                        <li>Message acknowledgment</li>
+                        <li>Status reporting</li>
+                        <li>Emergency check-ins</li>
+                        <li>Response tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-icon">🌐</div>
+                    <h3>Multi-Language Support</h3>
+                    <p>Automatically translate and deliver messages in multiple languages to ensure everyone understands.</p>
+                    <ul class="channel-features">
+                        <li>Automatic translation</li>
+                        <li>Pre-translated templates</li>
+                        <li>Cultural customization</li>
+                        <li>Accessibility compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="section-content">
+            <h2>Ensure Your Message Reaches Everyone</h2>
+            <p>Don't let communication gaps put your people at risk. Implement a comprehensive mass communication system that delivers critical information when and where it's needed most.</p>
+            <div class="cta-buttons">
+                <a href="../contact.html" class="btn-cta btn-cta-white">Schedule Communication Assessment</a>
+                <a href="../solutions.html" class="btn-cta btn-cta-outline">View All Solutions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="../components/loader.js"></script>
+</body>
+</html>

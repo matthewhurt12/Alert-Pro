@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Alert System | Responza Systems - Automated Emergency Response</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--accent);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 8rem 5% 3rem;
+            background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .breadcrumb a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.8;
+        }
+        
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+        
+        /* Content Sections */
+        .section {
+            padding: 5rem 5%;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--bg-light);
+        }
+        
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--warning);
+            color: var(--bg-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .section p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        /* Product Showcase */
+        .product-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+        
+        .product-visual {
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border);
+        }
+        
+        .product-icon {
+            font-size: 8rem;
+            color: var(--warning);
+            margin-bottom: 2rem;
+            display: block;
+        }
+        
+        .product-visual h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .product-visual p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--bg-white);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            color: var(--bg-white);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .btn-cta {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-cta-white {
+            background: var(--bg-white);
+            color: var(--primary);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-white:hover {
+            background: transparent;
+            color: var(--bg-white);
+        }
+        
+        .btn-cta-outline {
+            background: transparent;
+            color: var(--bg-white);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-outline:hover {
+            background: var(--bg-white);
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .footer-column h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .product-showcase {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="breadcrumb">
+            <a href="../products.html">Products</a> / X-Alert System
+        </div>
+        <h1>X-Alert Emergency System</h1>
+        <p>Advanced anomaly detection with automated lockdown capabilities and integrated mass notification system for comprehensive emergency response.</p>
+    </section>
+
+    <!-- Product Overview -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">AUTOMATED RESPONSE</div>
+            <h2>AI-Powered Emergency Detection & Response</h2>
+            <p>The X-Alert System combines advanced anomaly detection with automated response protocols to provide immediate protection when threats are detected. From occupancy monitoring to automated lockdowns, every component works together seamlessly.</p>
+            
+            <div class="product-showcase">
+                <div class="product-visual">
+                    <span class="product-icon">🚨</span>
+                    <h3>X-Alert Emergency System</h3>
+                    <p>Intelligent threat detection with automated response protocols</p>
+                </div>
+                <div>
+                    <h3>Automated Emergency Response</h3>
+                    <p>The X-Alert System continuously monitors for anomalies and threats, automatically initiating appropriate response protocols without requiring human intervention. This ensures the fastest possible response when every second counts.</p>
+                    <ul style="list-style: none; margin-top: 1.5rem;">
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--warning);">✓</strong> Sub-second threat detection and analysis</li>
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--warning);">✓</strong> Automated lockdown and security protocols</li>
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--warning);">✓</strong> Real-time occupancy tracking and management</li>
+                        <li style="padding: 0.5rem 0; color: var(--text-secondary);"><strong style="color: var(--warning);">✓</strong> Integrated mass notification system</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">CORE CAPABILITIES</div>
+            <h2>Advanced Emergency Response Features</h2>
+            <p>The X-Alert System includes sophisticated AI-powered features designed to detect, analyze, and respond to emergency situations automatically.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h4>AI Anomaly Detection</h4>
+                    <p>Machine learning algorithms continuously analyze patterns to identify potential threats and anomalies.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Automated Lockdown</h4>
+                    <p>Instant facility lockdown with selective access control and safe evacuation route management.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h4>Occupancy Tracking</h4>
+                    <p>Real-time tracking of all occupants with precise location data for emergency roll call.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📢</div>
+                    <h4>Mass Notifications</h4>
+                    <p>Instant alerts across all communication channels including PA, mobile, and digital displays.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Lightning Response</h4>
+                    <p>Sub-second response time from threat detection to automated response activation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h4>System Integration</h4>
+                    <p>Seamless integration with existing security systems through open APIs and protocols.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4>Analytics Dashboard</h4>
+                    <p>Comprehensive reporting and analytics for incident analysis and system optimization.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Multi-Zone Management</h4>
+                    <p>Unlimited security zones with customizable protocols for different areas and threat levels.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚑</div>
+                    <h4>First Responder Support</h4>
+                    <p>Automatic information sharing with emergency services including facility maps and occupancy data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Response Protocols -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">RESPONSE PROTOCOLS</div>
+            <h2>Configurable Emergency Response Actions</h2>
+            <p>The X-Alert System supports unlimited custom response protocols that can be triggered automatically based on threat type, location, and severity level.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚪</div>
+                    <h4>Access Control</h4>
+                    <p>Automatic door locking, unlocking, or selective access based on emergency type and evacuation needs.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h4>Lighting Control</h4>
+                    <p>Emergency lighting activation, strobe alerts, and visual guidance for evacuation routes.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌪️</div>
+                    <h4>HVAC Management</h4>
+                    <p>Automatic ventilation control to contain hazards or improve air quality during emergencies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="section-content">
+            <h2>Automate Your Emergency Response</h2>
+            <p>Eliminate human delay from your emergency response with intelligent automation that acts faster than any manual process. Experience the X-Alert System's automated protection capabilities.</p>
+            <div class="cta-buttons">
+                <a href="../contact.html" class="btn-cta btn-cta-white">Schedule X-Alert Demo</a>
+                <a href="../products.html" class="btn-cta btn-cta-outline">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="../components/loader.js"></script>
+</body>
+</html>
