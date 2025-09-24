@@ -24,9 +24,27 @@ class ComponentLoader {
     // Get the correct path to components based on current location
     getComponentPath() {
         const path = window.location.pathname;
-        const isInSubdirectory = path.includes('/solutions/') || path.includes('/products/') || path.includes('/industries/') || path.split('/').length > 2;
-        const componentPath = isInSubdirectory ? '../components/' : 'components/';
-        console.log('ComponentLoader: Using component path:', componentPath, 'for current path:', path);
+        console.log('ComponentLoader: Current pathname:', path);
+        
+        // Detect if we're on GitHub Pages by checking if path starts with a repo name
+        const isGitHubPages = path.startsWith('/Alert-Pro/') || window.location.hostname.includes('github.io');
+        
+        // Check if we're in a subdirectory (solutions/, products/, industries/)
+        const isInSubdirectory = path.includes('/solutions/') || path.includes('/products/') || path.includes('/industries/');
+        
+        let componentPath;
+        if (isGitHubPages && !isInSubdirectory) {
+            // On GitHub Pages root, use relative path with repo name
+            componentPath = './components/';
+        } else if (isInSubdirectory) {
+            // In subdirectories, go up one level
+            componentPath = '../components/';
+        } else {
+            // Local development or other hosting
+            componentPath = 'components/';
+        }
+        
+        console.log('ComponentLoader: Using component path:', componentPath, 'for current path:', path, 'isGitHubPages:', isGitHubPages, 'isInSubdirectory:', isInSubdirectory);
         return componentPath;
     }
 
