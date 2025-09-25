@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSponse Partnership | Alert Pro Solutions - AI-Driven Security Technology</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, visibility 0.2s;
+            visibility: hidden;
+            /* Remove margin-top gap to prevent hover issues */
+            margin-top: 0;
+            /* Add small padding-top to create visual space without breaking hover */
+            padding-top: 0.75rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            /* Small delay before showing to prevent accidental triggers */
+            transition-delay: 0.1s;
+        }
+        
+        /* Ensure dropdown stays visible when hovering over it */
+        .dropdown-menu:hover {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            background: var(--bg-light);
+        }
+        
+        .btn-primary {
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: var(--bg-white);
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding-top: 80px;
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Section */
+        .section {
+            padding: 4rem 5%;
+        }
+        
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Partnership Overview */
+        .partnership-overview {
+            background: var(--bg-light);
+        }
+        
+        .partnership-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+        
+        .partnership-logo-large {
+            text-align: center;
+        }
+        
+        .partnership-logo-large img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+        }
+        
+        .partnership-details h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .partnership-details p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+        
+        /* Technology Stack */
+        .tech-stack {
+            background: var(--bg-white);
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .tech-item {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        
+        .tech-item:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+        
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .cta h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-cta {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-cta-white {
+            background: var(--bg-white);
+            color: var(--accent);
+        }
+        
+        .btn-cta-white:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-cta-outline {
+            background: transparent;
+            color: var(--bg-white);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-outline:hover {
+            background: var(--bg-white);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 3rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-brand h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: var(--accent);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .footer-column h4 {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid var(--primary-light);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .partnership-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>XSponse Technology Partnership</h1>
+        <p>Transforming security through AI-driven innovation and integrated automation solutions that deliver immediate response capabilities.</p>
+    </section>
+
+    <!-- Partnership Overview -->
+    <section class="section partnership-overview">
+        <div class="section-content">
+            <div class="section-badge">AUTHORIZED PARTNER</div>
+            <h2>Leading the Future of Security Technology</h2>
+            <div class="partnership-grid">
+                <div class="partnership-logo-large">
+                    <img src="xsponse.png" alt="XSponse Technology Logo" />
+                </div>
+                <div class="partnership-details">
+                    <h3>Mission-Driven Innovation</h3>
+                    <p>XSponse's mission is to transform security and automation through an AI-driven ecosystem that delivers actionable insights, enabling immediate action and reaction. This aligns perfectly with our commitment to providing cutting-edge security solutions.</p>
+                    
+                    <h3>Integrated Excellence</h3>
+                    <p>Together, we provide innovative, integrated security solutions that enhance detection, alerting, and mass notification systems. Designed and built by integrators, our PoE solutions are easy to install, seamlessly integrated, and deliver real-time intelligence.</p>
+                    
+                    <h3>Comprehensive Protection</h3>
+                    <p>We offer end-to-end solutions for an evolving security landscape. With features like automated lockdowns, wearable badges for instant location tracking, and 911 support, XSponse empowers organizations to respond swiftly and effectively, ensuring safety, security, and peace of mind.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">KEY CAPABILITIES</div>
+            <h2>Advanced Security Features</h2>
+            <p>XSponse technology provides comprehensive security capabilities that set the industry standard for intelligent threat detection and automated response.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h4>AI-Driven Intelligence</h4>
+                    <p>Advanced machine learning algorithms provide real-time threat analysis and predictive security insights for proactive protection.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Instant Response</h4>
+                    <p>Automated lockdown systems and immediate notification protocols ensure rapid response to security threats and emergencies.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h4>Location Tracking</h4>
+                    <p>Wearable badges provide instant location tracking and panic button functionality for enhanced personal safety and security.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h4>Seamless Integration</h4>
+                    <p>PoE-powered solutions integrate effortlessly with existing infrastructure, minimizing installation complexity and costs.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📞</div>
+                    <h4>911 Integration</h4>
+                    <p>Direct integration with emergency services ensures immediate professional response when critical situations occur.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h4>Mass Notification</h4>
+                    <p>Comprehensive communication systems deliver critical information instantly across multiple channels and devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="section tech-stack">
+        <div class="section-content">
+            <div class="section-badge">TECHNOLOGY STACK</div>
+            <h2>Cutting-Edge Security Technologies</h2>
+            <p>XSponse leverages the latest in security technology to provide unmatched detection, response, and integration capabilities.</p>
+            
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">🔍</div>
+                    <div class="tech-name">Advanced Detection</div>
+                    <div class="tech-desc">Sub-50ms response time with 99.9% accuracy</div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">🔌</div>
+                    <div class="tech-name">PoE Technology</div>
+                    <div class="tech-desc">100% Power over Ethernet for simplified installation</div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">🛡️</div>
+                    <div class="tech-name">Patented Sensors</div>
+                    <div class="tech-desc">Duct-mount technology for comprehensive coverage</div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">🔋</div>
+                    <div class="tech-name">Long Battery Life</div>
+                    <div class="tech-desc">3-year battery life for wearable devices</div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">🔧</div>
+                    <div class="tech-name">Open API</div>
+                    <div class="tech-desc">Full integration capabilities with existing systems</div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">☁️</div>
+                    <div class="tech-name">Cloud Platform</div>
+                    <div class="tech-desc">Centralized management and monitoring</div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">📱</div>
+                    <div class="tech-name">Mobile Apps</div>
+                    <div class="tech-desc">iOS and Android applications for management</div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">🔐</div>
+                    <div class="tech-name">Enterprise Security</div>
+                    <div class="tech-desc">Bank-level encryption and security protocols</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Experience XSponse Technology?</h2>
+        <p>Discover how our partnership with XSponse can transform your organization's security infrastructure with AI-driven intelligence and automated response capabilities.</p>
+        <div class="cta-buttons">
+            <a href="contact.html" class="btn-cta btn-cta-white">Schedule Consultation</a>
+            <a href="products.html" class="btn-cta btn-cta-outline">View XSponse Products</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="components/loader.js"></script>
+</body>
+</html>

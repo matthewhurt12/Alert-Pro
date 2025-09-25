@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet the Team | Alert Pro Solutions - Security Experts & Leadership</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-white);
+        }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+        h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+        h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; }
+        h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+        
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 0.5rem;
+            min-width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, visibility 0.2s;
+            visibility: hidden;
+            /* Remove margin-top gap to prevent hover issues */
+            margin-top: 0;
+            /* Add small padding-top to create visual space without breaking hover */
+            padding-top: 0.75rem;
+        }
+        
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            /* Small delay before showing to prevent accidental triggers */
+            transition-delay: 0.1s;
+        }
+        
+        /* Ensure dropdown stays visible when hovering over it */
+        .dropdown-menu:hover {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+        }
+        
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            background: var(--bg-light);
+        }
+        
+        .btn-primary {
+            padding: 0.5rem 1rem;
+            background: var(--accent);
+            color: var(--bg-white);
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding-top: 80px;
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            margin-bottom: 1rem;
+        }
+        
+        .page-header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Section */
+        .section {
+            padding: 4rem 5%;
+        }
+        
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--bg-white);
+            font-weight: 600;
+        }
+        
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-title {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .member-bio {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .member-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .expertise-tag {
+            background: var(--bg-light);
+            color: var(--text-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        /* Leadership Section */
+        .leadership {
+            background: var(--bg-light);
+        }
+        
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+        
+        .leadership-member {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 3rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .leadership-member:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+        }
+        
+        .leadership-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--bg-white);
+            font-weight: 600;
+        }
+        
+        .leadership-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .leadership-title {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .leadership-bio {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        
+        .leadership-achievements {
+            list-style: none;
+        }
+        
+        .leadership-achievements li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .leadership-achievements li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 600;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Values Section */
+        .values {
+            background: var(--bg-white);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .value-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        
+        .value-card:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+        
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .value-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .value-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--bg-white);
+            text-align: center;
+        }
+        
+        .cta h2 {
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-cta {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .btn-cta-white {
+            background: var(--bg-white);
+            color: var(--accent);
+        }
+        
+        .btn-cta-white:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-cta-outline {
+            background: transparent;
+            color: var(--bg-white);
+            border: 2px solid var(--bg-white);
+        }
+        
+        .btn-cta-outline:hover {
+            background: var(--bg-white);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--bg-white);
+            padding: 3rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-brand h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-certifications {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .cert-badge {
+            background: var(--accent);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .footer-column h4 {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid var(--primary-light);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--bg-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.875rem;
+            transition: opacity 0.2s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links, .nav-cta .btn-outline {
+                display: none;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .leadership-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Meet the Team</h1>
+        <p>Dedicated security professionals committed to protecting what matters most through innovative technology and expert service.</p>
+    </section>
+
+    <!-- Leadership Section -->
+    <section class="section leadership">
+        <div class="section-content">
+            <div class="section-badge">LEADERSHIP</div>
+            <h2>Executive Team</h2>
+            <p>Our leadership team brings decades of combined experience in security technology, business development, and customer success.</p>
+            
+            <div class="leadership-grid">
+                <div class="leadership-member">
+                    <div class="leadership-photo">CEO</div>
+                    <div class="leadership-name">Executive Leadership</div>
+                    <div class="leadership-title">Chief Executive Officer</div>
+                    <div class="leadership-bio">
+                        <p>Leading Alert Pro Solutions with a vision to transform security through innovative technology partnerships and customer-focused solutions. Committed to delivering cutting-edge AI-driven security systems that protect organizations nationwide.</p>
+                    </div>
+                    <ul class="leadership-achievements">
+                        <li>20+ years in security technology</li>
+                        <li>Authorized XSponse partner</li>
+                        <li>Customer success focused</li>
+                        <li>Innovation driven approach</li>
+                    </ul>
+                </div>
+                
+                <div class="leadership-member">
+                    <div class="leadership-photo">CTO</div>
+                    <div class="leadership-name">Technical Leadership</div>
+                    <div class="leadership-title">Chief Technology Officer</div>
+                    <div class="leadership-bio">
+                        <p>Overseeing the technical implementation and integration of XSponse technology solutions. Ensuring seamless deployment, optimal performance, and continuous innovation in our security offerings.</p>
+                    </div>
+                    <ul class="leadership-achievements">
+                        <li>Expert in AI-driven security</li>
+                        <li>XSponse certified specialist</li>
+                        <li>System integration expertise</li>
+                        <li>Performance optimization focus</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section">
+        <div class="section-content">
+            <div class="section-badge">OUR TEAM</div>
+            <h2>Security Specialists</h2>
+            <p>Our dedicated team of security professionals, engineers, and support specialists work tirelessly to ensure your safety and success.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">SE</div>
+                    <div class="member-name">Security Engineers</div>
+                    <div class="member-title">Technical Implementation</div>
+                    <div class="member-bio">Our security engineers specialize in XSponse technology deployment, system integration, and performance optimization to ensure your security infrastructure operates at peak efficiency.</div>
+                    <div class="member-expertise">
+                        <span class="expertise-tag">System Integration</span>
+                        <span class="expertise-tag">XSponse Technology</span>
+                        <span class="expertise-tag">Performance Tuning</span>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">CS</div>
+                    <div class="member-name">Customer Success</div>
+                    <div class="member-title">Support & Training</div>
+                    <div class="member-bio">Our customer success team provides comprehensive training, ongoing support, and ensures you get maximum value from your security investment with personalized service.</div>
+                    <div class="member-expertise">
+                        <span class="expertise-tag">Training</span>
+                        <span class="expertise-tag">Support</span>
+                        <span class="expertise-tag">Customer Success</span>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">SA</div>
+                    <div class="member-name">Security Analysts</div>
+                    <div class="member-title">Threat Assessment</div>
+                    <div class="member-bio">Our security analysts conduct comprehensive threat assessments, develop customized security strategies, and provide ongoing monitoring and analysis services.</div>
+                    <div class="member-expertise">
+                        <span class="expertise-tag">Threat Analysis</span>
+                        <span class="expertise-tag">Risk Assessment</span>
+                        <span class="expertise-tag">Security Planning</span>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">PM</div>
+                    <div class="member-name">Project Managers</div>
+                    <div class="member-title">Implementation Leadership</div>
+                    <div class="member-bio">Our project managers ensure seamless deployment timelines, coordinate with all stakeholders, and manage every aspect of your security system implementation.</div>
+                    <div class="member-expertise">
+                        <span class="expertise-tag">Project Management</span>
+                        <span class="expertise-tag">Deployment</span>
+                        <span class="expertise-tag">Coordination</span>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">FS</div>
+                    <div class="member-name">Field Specialists</div>
+                    <div class="member-title">On-Site Installation</div>
+                    <div class="member-bio">Our field specialists handle professional installation, system commissioning, and on-site training to ensure your security systems are properly deployed and operational.</div>
+                    <div class="member-expertise">
+                        <span class="expertise-tag">Installation</span>
+                        <span class="expertise-tag">Commissioning</span>
+                        <span class="expertise-tag">Field Service</span>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo">TS</div>
+                    <div class="member-name">Technical Support</div>
+                    <div class="member-title">24/7 Assistance</div>
+                    <div class="member-bio">Our technical support team provides round-the-clock assistance, troubleshooting, and maintenance services to keep your security systems running optimally.</div>
+                    <div class="member-expertise">
+                        <span class="expertise-tag">24/7 Support</span>
+                        <span class="expertise-tag">Troubleshooting</span>
+                        <span class="expertise-tag">Maintenance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section values">
+        <div class="section-content">
+            <div class="section-badge">OUR VALUES</div>
+            <h2>What Drives Us</h2>
+            <p>Our core values guide everything we do, from technology partnerships to customer relationships.</p>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <div class="value-title">Excellence</div>
+                    <div class="value-description">We strive for excellence in every solution, partnership, and customer interaction.</div>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <div class="value-title">Partnership</div>
+                    <div class="value-description">Building strong partnerships with clients and technology leaders like XSponse.</div>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🔧</div>
+                    <div class="value-title">Innovation</div>
+                    <div class="value-description">Embracing cutting-edge AI-driven technology to stay ahead of security challenges.</div>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🛡️</div>
+                    <div class="value-title">Security</div>
+                    <div class="value-description">Unwavering commitment to protecting what matters most to our clients.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Work with Our Team?</h2>
+        <p>Connect with our security experts to discover how we can protect your organization with XSponse technology.</p>
+        <div class="cta-buttons">
+            <a href="contact.html" class="btn-cta btn-cta-white">Schedule Consultation</a>
+            <a href="about.html" class="btn-cta btn-cta-outline">Learn More About Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+    
+    <!-- Component Loader -->
+    <script src="components/loader.js"></script>
+</body>
+</html>
