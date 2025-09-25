@@ -188,26 +188,93 @@
         
         /* Page Header */
         .page-header {
-            padding: 8rem 5% 3rem;
+            padding: 10rem 5% 2rem;
             background: linear-gradient(180deg, var(--bg-white) 0%, var(--bg-light) 100%);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
         }
-        
+
         .page-header h1 {
             color: var(--primary);
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
         }
-        
+
         .page-header p {
             font-size: 1.25rem;
             color: var(--text-secondary);
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-visual {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.25;
+            z-index: 1;
+            width: 800px;
+            height: 600px;
+        }
+
+        .security-network {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Animation for the network connections */
+        .connection-line {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: drawLine 3s ease-in-out infinite;
+        }
+
+        .connection-line:nth-child(2) { animation-delay: 0.5s; }
+        .connection-line:nth-child(3) { animation-delay: 1s; }
+        .connection-line:nth-child(4) { animation-delay: 1.5s; }
+        .connection-line:nth-child(5) { animation-delay: 2s; }
+        .connection-line:nth-child(6) { animation-delay: 2.5s; }
+
+        @keyframes drawLine {
+            0% { stroke-dashoffset: 200; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -200; }
+        }
+
+        /* Pulse animation for security nodes */
+        .security-node {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .security-node:nth-child(odd) { animation-delay: 0.5s; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Floating animation for icons */
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(2) { animation-delay: 1s; }
+        .floating-icon:nth-child(3) { animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
         
         /* Solutions Section */
         .solutions {
-            padding: 5rem 5%;
+            padding: 3rem 5% 5rem;
             background: var(--bg-light);
         }
         
@@ -480,8 +547,20 @@
             h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
             
-            .nav-links, .nav-cta .btn-outline {
+            .nav-cta .btn-outline {
                 display: none;
+            }
+            
+            .header-visual {
+                width: 600px;
+                height: 450px;
+                opacity: 0.2;
+                top: 35%;
+            }
+            
+            .page-header {
+                padding: 8rem 5% 3rem;
+                min-height: 60vh;
             }
             
             .solution-item {
@@ -504,6 +583,27 @@
                 text-align: center;
             }
         }
+
+        @media (max-width: 480px) {
+            .header-visual {
+                width: 400px;
+                height: 300px;
+                opacity: 0.15;
+                top: 30%;
+            }
+            
+            .page-header {
+                min-height: 50vh;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -512,6 +612,124 @@
 
     <!-- Page Header -->
     <section class="page-header">
+        <div class="header-visual">
+            <svg class="security-network" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background Network Grid -->
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--accent)" stroke-width="0.5" opacity="0.3"/>
+                    </pattern>
+                    
+                    <!-- Gradients for security nodes -->
+                    <radialGradient id="shieldGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:var(--accent);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:var(--accent-dark);stop-opacity:0.8" />
+                    </radialGradient>
+                    
+                    <radialGradient id="alertGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:var(--danger);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#dc2626;stop-opacity:0.8" />
+                    </radialGradient>
+                    
+                    <radialGradient id="monitorGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:var(--success);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#059669;stop-opacity:0.8" />
+                    </radialGradient>
+                </defs>
+                
+                <!-- Grid Background -->
+                <rect width="100%" height="100%" fill="url(#grid)" opacity="0.1"/>
+                
+                <!-- Connection Lines (animated) -->
+                <g stroke="var(--accent)" stroke-width="2" fill="none" opacity="0.4">
+                    <line class="connection-line" x1="150" y1="150" x2="400" y2="300"/>
+                    <line class="connection-line" x1="400" y1="300" x2="650" y2="150"/>
+                    <line class="connection-line" x1="650" y1="150" x2="650" y2="450"/>
+                    <line class="connection-line" x1="650" y1="450" x2="400" y2="300"/>
+                    <line class="connection-line" x1="400" y1="300" x2="150" y2="450"/>
+                    <line class="connection-line" x1="150" y1="450" x2="150" y2="150"/>
+                </g>
+                
+                <!-- Central Hub -->
+                <g class="security-node">
+                    <circle cx="400" cy="300" r="40" fill="url(#shieldGradient)" opacity="0.8"/>
+                    <circle cx="400" cy="300" r="30" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0.6"/>
+                    <circle cx="400" cy="300" r="20" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
+                    <!-- Central Shield Icon -->
+                    <path d="M400 280 L385 285 L385 295 C385 305 392 315 400 320 C408 315 415 305 415 295 L415 285 Z" 
+                          fill="white" opacity="0.9"/>
+                </g>
+                
+                <!-- Security Nodes -->
+                <!-- Emergency Response Node -->
+                <g class="security-node">
+                    <circle cx="150" cy="150" r="25" fill="url(#alertGradient)" opacity="0.7"/>
+                    <circle cx="150" cy="150" r="18" fill="none" stroke="var(--danger)" stroke-width="1.5" opacity="0.5"/>
+                    <!-- Alert Icon -->
+                    <path d="M150 135 L145 155 L155 155 Z M148 160 L152 160 M148 165 L152 165" 
+                          stroke="white" stroke-width="2" fill="none"/>
+                </g>
+                
+                <!-- Environmental Monitoring Node -->
+                <g class="security-node">
+                    <circle cx="650" cy="150" r="25" fill="url(#monitorGradient)" opacity="0.7"/>
+                    <circle cx="650" cy="150" r="18" fill="none" stroke="var(--success)" stroke-width="1.5" opacity="0.5"/>
+                    <!-- Sensor Icon -->
+                    <circle cx="650" cy="150" r="8" fill="none" stroke="white" stroke-width="2"/>
+                    <circle cx="650" cy="150" r="4" fill="white"/>
+                </g>
+                
+                <!-- Communication Node -->
+                <g class="security-node">
+                    <circle cx="650" cy="450" r="25" fill="url(#shieldGradient)" opacity="0.7"/>
+                    <circle cx="650" cy="450" r="18" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+                    <!-- Communication Icon -->
+                    <rect x="642" y="442" width="16" height="16" rx="2" fill="none" stroke="white" stroke-width="2"/>
+                    <path d="M645 445 L655 445 M645 450 L655 450 M645 455 L650 455" stroke="white" stroke-width="1"/>
+                </g>
+                
+                <!-- Access Control Node -->
+                <g class="security-node">
+                    <circle cx="150" cy="450" r="25" fill="url(#alertGradient)" opacity="0.7"/>
+                    <circle cx="150" cy="450" r="18" fill="none" stroke="var(--danger)" stroke-width="1.5" opacity="0.5"/>
+                    <!-- Lock Icon -->
+                    <rect x="145" y="445" width="10" height="10" rx="1" fill="none" stroke="white" stroke-width="2"/>
+                    <path d="M148 445 L148 442 C148 440 150 438 152 438 C154 438 156 440 156 442 L156 445" 
+                          fill="none" stroke="white" stroke-width="2"/>
+                </g>
+                
+                <!-- Floating Data Points -->
+                <g class="floating-icon" opacity="0.6">
+                    <circle cx="300" cy="200" r="3" fill="var(--accent)"/>
+                    <circle cx="320" cy="180" r="2" fill="var(--success)"/>
+                    <circle cx="280" cy="220" r="2" fill="var(--warning)"/>
+                </g>
+                
+                <g class="floating-icon" opacity="0.6">
+                    <circle cx="500" cy="400" r="3" fill="var(--danger)"/>
+                    <circle cx="520" cy="420" r="2" fill="var(--accent)"/>
+                    <circle cx="480" cy="380" r="2" fill="var(--success)"/>
+                </g>
+                
+                <g class="floating-icon" opacity="0.6">
+                    <circle cx="200" cy="350" r="2" fill="var(--warning)"/>
+                    <circle cx="600" cy="250" r="2" fill="var(--accent)"/>
+                    <circle cx="100" cy="300" r="3" fill="var(--success)"/>
+                </g>
+                
+                <!-- Security Waves -->
+                <g opacity="0.2">
+                    <circle cx="400" cy="300" r="80" fill="none" stroke="var(--accent)" stroke-width="1">
+                        <animate attributeName="r" values="80;120;80" dur="4s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.2;0;0.2" dur="4s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="400" cy="300" r="100" fill="none" stroke="var(--accent)" stroke-width="1">
+                        <animate attributeName="r" values="100;140;100" dur="4s" repeatCount="indefinite" begin="1s"/>
+                        <animate attributeName="opacity" values="0.2;0;0.2" dur="4s" repeatCount="indefinite" begin="1s"/>
+                    </circle>
+                </g>
+            </svg>
+        </div>
         <h1>Comprehensive Security Solutions</h1>
         <p>Purpose-built solutions that address your most critical security challenges with integrated AI-driven technology</p>
     </section>
