@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-Integrate Platform | Alert Pro Solutions - Seamless System Integration</title>
+    <title>Company Overview | Alert Pro Solutions - Our Mission & Vision</title>
     <style>
         * {
             margin: 0;
@@ -163,175 +163,99 @@
             color: var(--accent);
         }
         
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: 1px solid var(--accent);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+        
         /* Page Header */
         .page-header {
             padding: 8rem 5% 3rem;
-            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
-            color: var(--bg-white);
+            background: linear-gradient(180deg, var(--bg-white) 0%, var(--bg-light) 100%);
             text-align: center;
         }
         
         .page-header h1 {
-            color: var(--bg-white);
+            color: var(--primary);
             margin-bottom: 1rem;
         }
         
         .page-header p {
             font-size: 1.25rem;
-            opacity: 0.95;
+            color: var(--text-secondary);
             max-width: 800px;
             margin: 0 auto;
         }
         
-        /* Platform Section */
-        .platform {
+        /* Main Content */
+        .main-content {
             padding: 5rem 5%;
-            background: var(--bg-light);
+            background: var(--bg-white);
         }
         
-        .platform-header {
-            max-width: 800px;
-            margin: 0 auto 4rem;
-            text-align: center;
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        .section-badge {
-            display: inline-block;
-            background: var(--success);
-            color: var(--bg-white);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
+        .content-section {
+            margin-bottom: 4rem;
         }
         
-        .platform-header h2 {
+        .content-section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-section h3 {
             color: var(--primary);
             margin-bottom: 1rem;
+            margin-top: 2rem;
         }
         
-        .platform-header p {
+        .content-section p {
             font-size: 1.125rem;
             color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
         }
         
-        .platform-features {
-            max-width: 1400px;
-            margin: 0 auto;
+        .content-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-top: 2rem;
         }
         
-        .platform-card {
-            background: var(--bg-white);
+        .content-card {
+            background: var(--bg-light);
             padding: 2rem;
             border-radius: 12px;
             border: 1px solid var(--border);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
         }
         
-        .platform-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--success) 0%, #059669 100%);
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-        
-        .platform-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .platform-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-        }
-        
-        .platform-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--bg-white);
-            margin-bottom: 1.5rem;
-        }
-        
-        .platform-card h3 {
-            margin-bottom: 0.75rem;
+        .content-card h4 {
             color: var(--primary);
-        }
-        
-        .platform-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        
-        .platform-link {
-            color: var(--success);
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
-        }
-        
-        .platform-link:hover {
-            gap: 0.75rem;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--bg-white);
-            text-align: center;
-            padding: 5rem 5%;
-        }
-        
-        .cta-section h2 {
-            color: var(--bg-white);
             margin-bottom: 1rem;
         }
         
-        .cta-section p {
-            opacity: 0.9;
-            margin-bottom: 2rem;
-            font-size: 1.125rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .btn-primary {
-            background: var(--success);
-            color: var(--bg-white);
-            padding: 0.875rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
+        .content-card p {
             font-size: 1rem;
-            transition: all 0.2s;
-            display: inline-block;
-        }
-        
-        .btn-primary:hover {
-            background: #059669;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            margin-bottom: 0;
         }
         
         /* Footer */
@@ -445,7 +369,7 @@
                 display: none;
             }
             
-            .platform-features {
+            .content-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -468,93 +392,52 @@
 
     <!-- Page Header -->
     <section class="page-header">
-        <h1>X-Integrate Platform</h1>
-        <p>Ensure seamless interoperability, automation, and open API accessibility for streamlined integration and efficient workflows across your entire security ecosystem.</p>
+        <h1>Company Overview</h1>
+        <p>Learn about Alert Pro Solutions - our mission, vision, values, and commitment to protecting lives through innovative security technology.</p>
     </section>
 
-    <!-- Platform Section -->
-    <section class="platform" id="platform">
-        <div class="platform-header">
-            <div class="section-badge">X-INTEGRATE MODULES</div>
-            <h2>Enhanced Connectivity & Communication</h2>
-            <p>XSponse offers a suite of modular add-ons that seamlessly integrate with the Guardian software to enhance functionality and communication. These modules ensure that critical updates and actions are delivered quickly and effectively across multiple channels, providing unparalleled connectivity and responsiveness.</p>
-        </div>
-        
-        <div class="platform-features">
-            <div class="platform-card">
-                <div class="platform-icon">🔗</div>
-                <h3>X-Integrate API</h3>
-                <p>Ensure seamless interoperability, automation, and open API accessibility for streamlined integration and efficient workflows.</p>
-                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="content-container">
+            <div class="content-section">
+                <h2>Our Mission</h2>
+                <p>At Alert Pro Solutions, our mission is clear: to save lives through innovative AI-driven security technology. We are committed to providing comprehensive security solutions that protect what matters most to organizations across various industries.</p>
             </div>
-            <div class="platform-card">
-                <div class="platform-icon">🏢</div>
-                <h3>X-Integrate Central Station Module</h3>
-                <p>Deliver real-time alerts, live video, updates, and electronic maps to enhance incident response and management.</p>
-                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
-            </div>
-            <div class="platform-card">
-                <div class="platform-icon">📧</div>
-                <h3>X-Integrate Email Module</h3>
-                <p>Automates email notifications to deliver critical updates and alerts directly to your inbox.</p>
-                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
-            </div>
-            <div class="platform-card">
-                <div class="platform-icon">📞</div>
-                <h3>X-Integrate Phone Call Module</h3>
-                <p>Provides automated voice call notifications to ensure urgent messages reach intended recipients promptly.</p>
-                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
-            </div>
-            <div class="platform-card">
-                <div class="platform-icon">💬</div>
-                <h3>X-Integrate Text Message Module</h3>
-                <p>Sends SMS alerts instantly to keep teams informed and responsive during emergencies.</p>
-                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
-            </div>
-            <div class="platform-card">
-                <div class="platform-icon">📱</div>
-                <h3>X-Guardian Mobile App</h3>
-                <p>Enables real-time monitoring, alerts, and control from any mobile device for enhanced situational awareness.</p>
-                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Integration Benefits Section -->
-    <section class="platform" style="background: var(--bg-white);">
-        <div class="platform-header">
-            <div class="section-badge">INTEGRATION BENEFITS</div>
-            <h2>Seamless System Connectivity</h2>
-            <p>X-Integrate modules bridge the gap between your existing infrastructure and the XSponse ecosystem, ensuring no critical communication is missed.</p>
-        </div>
-        
-        <div class="platform-features">
-            <div class="platform-card">
-                <div class="platform-icon">⚡</div>
-                <h3>Instant Deployment</h3>
-                <p>Quick setup and configuration with pre-built connectors for popular systems and platforms.</p>
-                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
+            <div class="content-section">
+                <h2>Our Vision</h2>
+                <p>We envision a world where every organization has access to advanced, reliable security systems that provide real-time insights and immediate response capabilities. Through our partnership with XSponse Technologies, we're making this vision a reality.</p>
             </div>
-            <div class="platform-card">
-                <div class="platform-icon">🔄</div>
-                <h3>Real-Time Synchronization</h3>
-                <p>Bi-directional data flow ensures all systems stay synchronized with the latest information.</p>
-                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
-            </div>
-            <div class="platform-card">
-                <div class="platform-icon">🛡️</div>
-                <h3>Secure Communications</h3>
-                <p>End-to-end encryption and secure protocols protect sensitive data during transmission.</p>
-                <a href="contact.html" class="platform-link">Learn More <span>→</span></a>
-            </div>
-        </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2>Ready to Integrate Your Systems?</h2>
-        <p>Discover how X-Integrate modules can enhance your security ecosystem with seamless connectivity and automated workflows.</p>
-        <a href="contact.html" class="btn-primary">Schedule Integration Consultation</a>
+            <div class="content-section">
+                <h2>Our Values</h2>
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h4>Innovation</h4>
+                        <p>We continuously seek cutting-edge solutions and technologies to stay ahead of emerging security challenges.</p>
+                    </div>
+                    <div class="content-card">
+                        <h4>Reliability</h4>
+                        <p>Our systems are built to perform when it matters most, with robust technology and comprehensive support.</p>
+                    </div>
+                    <div class="content-card">
+                        <h4>Excellence</h4>
+                        <p>We strive for excellence in every aspect of our business, from product quality to customer service.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>What Drives Us</h2>
+                <p>Every second counts in emergency situations. This fundamental truth drives everything we do at Alert Pro Solutions. We understand that our technology doesn't just protect buildings or assets - it protects lives.</p>
+                
+                <h3>Our Commitment</h3>
+                <p>We are committed to delivering security solutions that are not only technologically advanced but also practical, reliable, and effective. Our partnership with XSponse Technologies ensures that our clients receive the most sophisticated AI-driven security ecosystem available today.</p>
+                
+                <h3>Looking Forward</h3>
+                <p>As we continue to grow and evolve, our focus remains unchanged: providing innovative security solutions that save lives and protect what matters most to our clients and their communities.</p>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->

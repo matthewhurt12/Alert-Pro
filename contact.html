@@ -362,81 +362,6 @@
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
         }
         
-        /* ROI Calculator */
-        .roi-calculator {
-            padding: 5rem 5%;
-            background: var(--bg-light);
-        }
-        
-        .calculator-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .section-badge {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--bg-white);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-        }
-        
-        .calculator-content h2 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .calculator-content p {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-        }
-        
-        .calculator-form {
-            background: var(--bg-white);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-            border: 1px solid var(--border);
-            margin-bottom: 2rem;
-        }
-        
-        .calculator-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .calculator-result {
-            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
-            color: var(--bg-white);
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .result-label {
-            font-size: 0.875rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-        }
-        
-        .result-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .result-description {
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
         
         /* Office Locations */
         .locations {
@@ -608,9 +533,6 @@
                 grid-template-columns: 1fr;
             }
             
-            .calculator-inputs {
-                grid-template-columns: 1fr;
-            }
             
             .locations-grid {
                 grid-template-columns: 1fr;
@@ -651,7 +573,7 @@
                         <div class="contact-icon">📞</div>
                         <div class="contact-details">
                             <h4>Phone Support</h4>
-                            <p><a href="tel:+1-800-RESPONZA">+1 (800) RESPONZA</a></p>
+                            <p><a href="tel:+1-478-319-4763">(478) 319-4763</a></p>
                             <p>Monday - Friday, 8 AM - 6 PM EST</p>
                         </div>
                     </div>
@@ -660,28 +582,11 @@
                         <div class="contact-icon">✉️</div>
                         <div class="contact-details">
                             <h4>Email Support</h4>
-                            <p><a href="mailto:info@responzasystems.com">info@responzasystems.com</a></p>
+                            <p><a href="mailto:info@alert-prosolutions.com">info@alert-prosolutions.com</a></p>
                             <p>Response within 24 hours</p>
                         </div>
                     </div>
                     
-                    <div class="contact-method">
-                        <div class="contact-icon">🚨</div>
-                        <div class="contact-details">
-                            <h4>Emergency Support</h4>
-                            <p><a href="tel:+1-800-911-HELP">+1 (800) 911-HELP</a></p>
-                            <p>24/7 Emergency Response</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-method">
-                        <div class="contact-icon">💬</div>
-                        <div class="contact-details">
-                            <h4>Live Chat</h4>
-                            <p>Available on our website</p>
-                            <p>Instant support during business hours</p>
-                        </div>
-                    </div>
                 </div>
             </div>
             
@@ -764,51 +669,6 @@
         </div>
     </section>
 
-    <!-- ROI Calculator -->
-    <section class="roi-calculator" id="roi">
-        <div class="calculator-content">
-            <div class="section-badge">ROI CALCULATOR</div>
-            <h2>Calculate Your Security Investment</h2>
-            <p>See the potential return on investment for implementing Alert Pro Solutions' comprehensive security solution at your facility.</p>
-            
-            <div class="calculator-form">
-                <div class="calculator-inputs">
-                    <div class="form-group">
-                        <label for="facilityType">Facility Type</label>
-                        <select id="facilityType">
-                            <option value="k12">K-12 School</option>
-                            <option value="higher-ed">University/College</option>
-                            <option value="healthcare">Hospital/Clinic</option>
-                            <option value="corporate">Corporate Office</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="squareFootage">Square Footage</label>
-                        <input type="number" id="squareFootage" placeholder="50000">
-                    </div>
-                    <div class="form-group">
-                        <label for="occupancy">Average Daily Occupancy</label>
-                        <input type="number" id="occupancy" placeholder="500">
-                    </div>
-                    <div class="form-group">
-                        <label for="currentSecurity">Current Security Budget (Annual)</label>
-                        <input type="number" id="currentSecurity" placeholder="100000">
-                    </div>
-                </div>
-                
-                <div class="calculator-result">
-                    <div class="result-label">Estimated Annual Savings</div>
-                    <div class="result-value">$125,000</div>
-                    <div class="result-description">Based on reduced incidents, automated monitoring, and compliance benefits</div>
-                </div>
-            </div>
-            
-            <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 1rem;">
-                *Calculations are estimates based on industry averages. Actual results may vary. Contact us for a detailed ROI analysis.
-            </p>
-        </div>
-    </section>
 
     <!-- Office Locations -->
     <section class="locations">
@@ -819,29 +679,18 @@
         <div class="locations-grid">
             <div class="location-card">
                 <div class="location-icon">🏢</div>
-                <div class="location-name">Corporate Headquarters</div>
+                <div class="location-name">Athens, Georgia Office</div>
                 <div class="location-address">
-                    123 Security Boulevard<br>
-                    Safety City, SC 12345<br>
-                    <a href="tel:+1-555-0123">(555) 012-3456</a>
+                    Athens, GA<br>
+                    <a href="tel:+1-478-319-4763">(478) 319-4763</a>
                 </div>
             </div>
             <div class="location-card">
                 <div class="location-icon">🏬</div>
-                <div class="location-name">East Coast Office</div>
+                <div class="location-name">Florida Office</div>
                 <div class="location-address">
-                    456 Response Avenue<br>
-                    Protection Town, PT 67890<br>
-                    <a href="tel:+1-555-0789">(555) 078-9012</a>
-                </div>
-            </div>
-            <div class="location-card">
-                <div class="location-icon">🏭</div>
-                <div class="location-name">West Coast Office</div>
-                <div class="location-address">
-                    789 Guardian Street<br>
-                    Shield City, SH 34567<br>
-                    <a href="tel:+1-555-0345">(555) 034-5678</a>
+                    Florida<br>
+                    <a href="tel:+1-478-319-4763">(478) 319-4763</a>
                 </div>
             </div>
         </div>
@@ -851,6 +700,6 @@
     <div id="footer"></div>
     
     <!-- Component Loader -->
-    <script src="components/loader.js"></script>
+    <script src="assets/js/loader.js"></script>
 </body>
 </html>

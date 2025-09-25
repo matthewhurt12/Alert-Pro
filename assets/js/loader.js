@@ -255,7 +255,14 @@ class ComponentLoader {
                 // Close menu when clicking on a link
                 const navLinksAll = navLinks.querySelectorAll('a');
                 navLinksAll.forEach(link => {
-                    link.addEventListener('click', () => {
+                    link.addEventListener('click', (e) => {
+                        // Don't close menu if this is a dropdown parent link on mobile
+                        if (window.innerWidth <= 768 && link.parentElement.classList.contains('nav-dropdown')) {
+                            // This is handled by the dropdown toggle logic below
+                            return;
+                        }
+                        
+                        // Close menu for regular links and dropdown children
                         navLinks.classList.remove('nav-open');
                         mobileMenuBtn.classList.remove('active');
                         body.classList.remove('nav-open');
