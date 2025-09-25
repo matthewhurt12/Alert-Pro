@@ -463,6 +463,21 @@ style.textContent = `
             border-bottom: none;
         }
 
+        /* Style the "View All" links to make them more prominent on mobile */
+        .nav-dropdown .dropdown-menu a.view-all-link {
+            background: var(--accent);
+            color: var(--bg-white) !important;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            border-radius: 6px;
+            border-bottom: none !important;
+        }
+
+        .nav-dropdown .dropdown-menu a.view-all-link:hover {
+            background: var(--accent-dark);
+            color: var(--bg-white) !important;
+        }
+
         /* Mobile CTA buttons */
         .mobile-cta {
             display: block;
